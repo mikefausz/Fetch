@@ -1,1 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/workspace.xml
+*.db
+out/
 bower_components/
