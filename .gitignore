@@ -2,3 +2,4 @@
 .idea/workspace.xml
 *.db
 out/
+bower_components/
