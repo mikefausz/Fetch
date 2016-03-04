@@ -10,6 +10,14 @@ public class Request {
     String request;
     String status;
 
+    public Request(int id, int userId, int driverId, String request, String status) {
+        this.id = id;
+        this.userId = userId;
+        this.driverId = driverId;
+        this.request = request;
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }
