@@ -27,17 +27,15 @@ templates.openRequest = [
 
 var fetchApp = {
   urls: {
-    usersUrl: 'http://tiny-tiny.herokuapp.com/collections/users',
-    driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
-    requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
-    // URL PATHS JAMES CREATES WILL GO HERE
-
-    // userUrl: '/user',
-    // driversUrl: '/login-Driver',
-    // driversUrl: '/login-Driver',
-    // usersUrl: '/login-User',
-    // userRequestsUrl: '/user-requests',
-    // requestUrl: '/request',      ..or something along these lines
+    // usersUrl: 'http://tiny-tiny.herokuapp.com/collections/users',
+    // driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
+    // requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
+    // URL ROUTES JAMES CREATES WILL GO HERE
+    userUrl:          '/user',
+    driversUrl:       '/login-Driver',
+    usersUrl:         '/login-User',
+    userRequestsUrl:  '/user-requests',
+    requestUrl:       '/request',
   },
 
   // MAYBE SOME EMPTY OBJECTS TO STORE 'GET' DATA LOCALLY
@@ -98,7 +96,7 @@ var fetchApp = {
       method: 'POST',
       data: userName,
       success: function(driver) {
-        console.log("gave drivername name to james";
+        console.log("gave drivername name to james");
       },
       error: function(err) {
         console.log("ERROR", err);
