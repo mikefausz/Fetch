@@ -140,11 +140,11 @@ var fetchApp = {
     });
   },
 
-  getUserRequests: function(userId) {
+  //getUserRequests: function(userId) {
       // will filter requests matching the userId
       // these will be requests the user has posted,
       // but have not yet had delivered
-  },
+  //},
 
   getUserRequests: function() {
    $.ajax({
