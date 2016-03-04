@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class Main {
     public static void createTables(Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
-        stmt.execute("CREATE TABLE IF NOT EXISTS users (id IDENTITY, name VARCHAR");
-        stmt.execute("CREATE TABLE IF NOT EXISTS drivers (id IDENTITY, name VARCHAR");
-        stmt.execute("CREATE TABLE IF NOT EXISTS requests (id IDENTITY, user_id INT, driver_id INT, request VARCHAR, status VARCHAR");
+        stmt.execute("CREATE TABLE IF NOT EXISTS users (id IDENTITY, name VARCHAR)");
+        stmt.execute("CREATE TABLE IF NOT EXISTS drivers (id IDENTITY, name VARCHAR)");
+        stmt.execute("CREATE TABLE IF NOT EXISTS requests (id IDENTITY, user_id INT, driver_id INT, request VARCHAR, status VARCHAR)");
     }
     public static void insertUser(Connection conn, String name) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO users VALUES (NULL, ?)");
