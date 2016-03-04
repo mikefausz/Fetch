@@ -31,11 +31,11 @@ var fetchApp = {
     // driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
     // requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
     // URL ROUTES JAMES CREATES WILL GO HERE
-    userUrl:          '/user',
-    driversUrl:       '/login-Driver',
-    usersUrl:         '/login-User',
-    userRequestsUrl:  '/user-requests',
-    requestUrl:       '/request',
+    user:          '/user',
+    loginDriver:       '/login-Driver',
+    loginUser:         '/login-User',
+    userRequests:  '/user-requests',
+    request:       '/request',
   },
 
   // MAYBE SOME EMPTY OBJECTS TO STORE 'GET' DATA LOCALLY
@@ -57,19 +57,29 @@ var fetchApp = {
 
     // ON LOGIN FORM SUBMISSION
     $('#letsGo').on('click', function () {
-      $('#loginPage').removeClass('active');
-      if ($('select[name=userType]').val() === 'user') {
+      if ($('select[name=userType]').val() === 'newUser') {
+        var username = $('input[name="userName"]').val();
+        fetchApp.addNewUser(username);
+        // add only this user's open requests to DOM
+      }
+      else if ($('select[name=userType]').val() === 'user') {
         $('#userPage').addClass('active');
-        var username = $('input[name="username"]').val();
-        fetchApp.postUserId(username);
+        $('#loginPage').removeClass('active');
+        var username = $('input[name="userName"]').val();
+        fetchApp.loginUser(username);
+        // add only this user's open requests to DOM
+      }
+      else if ($('select[name=userType]').val() === 'newDriver') {
+        var username = $('input[name="userName"]').val();
+        fetchApp.addNewDriver(username);
         // add only this user's open requests to DOM
       }
       else {
         $('#driverPage').addClass('active');
-        // fetchApp.getDriverId(username)
-        // IF user not in database addUser(username)
-        // add this driver's accepted requests
-        // followed by all open requests to DOM
+        $('#loginPage').removeClass('active');
+        var username = $('input[name="userName"]').val();
+        fetchApp.loginDriver(username);
+        // add only this user's open requests to DOM
       }
     });
 
@@ -92,9 +102,9 @@ var fetchApp = {
   // ALL THE OTHER FUNCTIONS WE WRITE WILL GO HERE
   postDriverId: function(driverName) {
     $.ajax({
-      url: fetchApp.driversUrl,
+      url: 'user',
       method: 'POST',
-      data: userName,
+      data: JSON.stringify(driverName),
       success: function(driver) {
         console.log("gave drivername name to james");
       },
@@ -115,9 +125,9 @@ var fetchApp = {
       // fulfill, but has not yet completed
   },
 
-  postUserId: function(userName) {
+  addNewUser: function(userName) {
     $.ajax({
-      url: fetchApp.usersUrl,
+      url: fetchApp.urls.user,
       method: 'POST',
       data: userName,
       success: function(user) {
@@ -129,9 +139,9 @@ var fetchApp = {
     });
   },
 
-  addNewUser: function(userName) {
+  loginUser: function(userName) {
     $.ajax({
-      url: fetchApp.userUrl,
+      url: fetchApp.urls.user,
       method: 'POST',
       data: userName,
       success: function(response) {
