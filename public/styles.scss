@@ -1,16 +1,105 @@
-.active{
-  display:inline-block;
+* {
+  // font-family: 'Open Sans', Helvetica, sans-serif;
+  font-family: 'Roboto Slab', serif;
 }
-.remove{
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.active{
+  display: block;
+}
+
+section {
   display: none;
+  width: 80%;
+  margin: auto;
+}
+
+.button {
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#bg {
+  position: absolute;
+    height: 100%;
+    width: 100%;
+    // background-image: url("https://jmhandinhand.files.wordpress.com/2012/05/img_2056.jpg");
+    // background-image: url("https://images.unsplash.com/photo-1456143077270-30de0a1bf7bc?crop=entropy&dpr=2&fit=crop&fm=jpg&h=725&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1300");
+    background-image: url('./fetch-bg.jpeg');
+    background-position-y: 28%;
+    background-position-x: 55%;
+    background-size: 160%;
+}
+
+#tint {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(19, 67, 123, .85);
+}
+
+#loginBox {
+  width: 250px;
+  height: 300px;
+  padding: 6px;
+  color: white;
+  background: rgba(35, 99, 173, 1);
+  margin: 18% auto;
+  text-align: center;
+  border-radius: 7px;
+  box-shadow: 0px 3px 16px 2px rgba(0,0,0,0.71);
+  h2 {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 72px;
+    font-family: 'Lobster', cursive;
+  }
+  p {
+    margin-top: 0;
+    font-size: 14px;
+  }
+  form {
+    margin: 45px auto;
+  }
+  input, #letsGo, button {
+    margin: 12px auto;
+    display: block;
+  }
+  input {
+    padding: 4px;
+    font-size: 14px;
+    text-align: center;
+  }
+  label {
+    font-size: 14px;
+    margin: 4px;
+  }
+  select {
+    font-size: 16px;
+  }
+  #letsGo {
+    font-size: 20px;
+    padding: 8px;
+    width: 70px;
+    font-family: 'Lobster', cursive;
+    border: 1px solid;
+  }
 }
 
 header{
   width: 100%;
   background-color: #4E04D8;
-  height:50px;
+  height:200px;
   border-bottom:5px solid #E6E6E6;
 }
+
 h1{
   font-size: 20px;
   color: white;
@@ -19,7 +108,9 @@ h1{
   text-shadow: 5px 5px 5px black;
 }
 
-
+.logoutButton {
+  @extend .button;
+}
 #login{
   width: 50%;
   height: 50px;
@@ -29,6 +120,27 @@ h1{
   padding: 20px;
 }
 
+#userPage {
+  div {
+    border: 1px solid black;
+    margin: 10px;
+  }
+  #submitRequest {
+    @extend .button;
+  }
+  .deleteButton {
+    @extend .button;
+  }
+}
+#driverPage {
+  div {
+    border: 1px solid black;
+    margin: 10px;
+  }
+  .acceptButton {
+    @extend .button;
+  }
+}
 .requestContainer{
   width: 80%;
   height: 100px;

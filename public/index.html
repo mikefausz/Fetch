@@ -2,91 +2,149 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="styles.css" href="syles.scss" media="screen" title="no title" charset="utf-8">
-    <title>Fetch</title>
+    <title>Fetch!</title>
   </head>
   <body>
-    <header>
-      <h1>FETCH<h1>
-    </header>
+    <section id="loginPage" class="active">
+      <div id="bg">
+        <div id="tint">
+        <div id="loginBox">
+        <h2>Fetch!</h2>
+        <p>An anything delivery service</p>
+        <form>
+          <input type="text" class="nameInput" placeholder="Username">
+          <label for="userType">I am a: </label>
+          <select name="userType">
+            <option value="user">User</option>
+            <option value="driver">Driver</option>
+          </select>
+          <div class="button" id="letsGo">Let's go!</div>
+          <!-- <button class="loginButton" type="button" name="button">Let's Go!</button> -->
+        </form>
 
-<section id="login" class="active">
-  <form>
-  <input type="text" class="nameInput" placeholder="Name">
-  <select class="userType">
-    <option value="driver">Driver</option>
-    <option value="Customer">Customer</option>
-  </select>
-  <button class="loginButton" type="button" name="button">Let's Go!</button>
-</form>
-</section>
+        </div>
+        </div>
+      </div>
+    </section>
 
+    <section id="userPage">
+      <header>
+        <h1>FETCH<h1>
+          <h2>USER PAGE</h2>
+          <div class="logoutButton">
+            Logout
+          </div>
+      </header>
+      <!-- <div class="requestContainer"> -->
+        <div id="newRequest">
+          <h2>New Request</h2>
+          <form >
+            <label for="">Request</label>
+            <textarea placeholder="What do you need?" rows="4" cols="50"></textarea>
+            <div id="submitRequest">Submit request</div>
+            <!-- <input type="button" name="send"> -->
+          </form>
 
-<section id="landingPage" class="remove">
+        </div>
+        <h2>Your Open Requests</h2>
+      <div class="userRequest">
+        <h3>Get me 2 beef Doritos Locos tacos</h3>
+        <p>Status: Accepted/Open</p>
+        <p>Driver name(if accepted)</p>
+        <div class="deleteButton">
+          Request completed
+        </div>
+        <div class="deleteButton">
+          Delete request
+        </div>
+      </div>
+      <div class="userRequest">
+        <h3>I need a bottle of wine</h3>
+        <p>Status: Accepted/Open</p>
+        <p>Driver name(if accepted)</p>
+        <div class="deleteButton">
+          Request completed
+        </div>
+        <div class="deleteButton">
+          Delete request
+        </div>
+      </div>
+      <div class="userRequest">
+        <h3>Pick me up some ramen</h3>
+        <p>Status: Accepted/Open</p>
+        <p>Driver name(if accepted)</p>
+        <div class="deleteButton">
+          Request completed
+        </div>
+        <div class="deleteButton">
+          Delete request
+        </div>
+      </div>
+    </section>
 
-<section id="customer">
+    <section id="driverPage">
+      <header>
+        <h1>FETCH<h1>
+          <h2>DRIVER PAGE</h2>
+          <div class="logoutButton">
+            Logout
+          </div>
+      </header>
+      <h2>Your Accepted Requests</h2>
+      <div class="acceptedRequest">
+        <h3>Pick me up some ramen</h3>
+        <p>User name</p>
+        <!-- <div class="deleteButton">
+          Cancel Request
+        </div> -->
+      </div>
+      <div class="acceptedRequest">
+        <h3>Pick me up some ramen</h3>
+        <p>User name</p>
+        <!-- <div class="deleteButton">
+          Cancel Request
+        </div> -->
+      </div>
 
-    <div class="requestContainer">
-      <h2>Fetch List 1<h2>
-      <form class="sendRequest">
-        <input type="text" name="itemslist">
-        <input type="button" name="send">
-      </form>
-    </div>
+      <h2>All Open Requests</h2>
 
-    <div class="requestContainer">
-      <h2>Fetch List 2<h2>
-      <form class="sendRequest">
-        <input type="text" name="itemslist">
-        <input type="button" name="send">
-      </form>
-    </div>
+      <div class="userRequest">
+        <h3>Pick me up some ramen</h3>
+        <p>User name</p>
+        <div class="acceptButton">
+          Accept request
+        </div>
+      </div>
+      <div class="userRequest">
+        <h3>Get me some weed</h3>
+        <p>User name</p>
+        <div class="acceptButton">
+          Accept request
+        </div>
+      </div>
+      <div class="userRequest">
+        <h3>I need Cheez Doodles</h3>
+        <p>User name</p>
+        <div class="acceptButton">
+          Accept request
+        </div>
+      </div>
+      <div class="userRequest">
+        <h3>Flour, milk, eggs</h3>
+        <p>User name</p>
+        <div class="acceptButton">
+          Accept request
+        </div>
+      </div>
 
-    <div class="requestContainer">
-      <h2>Fetch List 3<h2>
-      <form class="SendRequest">
-        <input type="text" name="itemslist">
-        <input type="button" name="send">
-      </form>
-    </div>
-</section>
+    </section>
 
-<section id="driver">
-
-<!--
-    <div class="requestContainer">
-      <h2>Fetch List 1<h2>
-      <form class="sendRequest">
-        <input type="text" name="itemslist" value="Request items here:">
-        <input type="button" name="send" value="Send">
-      </form>
-    </div>
-
-    <div class="requestContainer">
-      <h2>Fetch List 2<h2>
-      <form class="sendRequest">
-        <input type="text" name="itemslist" value="Request items here:">
-        <input type="button" name="send" value="Send">
-      </form>
-    </div>
-
-    <div class="requestContainer">
-      <h2>Fetch List 3<h2>
-      <form class="SendRequest">
-        <input type="text" name="itemslist" value="Request items here:">
-        <input type="button" name="send" value="Send">
-      </form>
-    </div> -->
-
-</section>
-
-</section>
-
-  <script src="bower_components/underscore/underscore.js">
-  </script>
-  <script src="bower_components/jquery/dist/jquery.js">
-  </script>
-  <script src="app.js">
-  </script>
+  <script src="bower_components/underscore/underscore.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="app.js"></script>
   </body>
 </html>

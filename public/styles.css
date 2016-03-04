@@ -1,13 +1,83 @@
-.active {
-  display: inline-block; }
 
-.remove {
-  display: none; }
+* {
+  font-family: 'Roboto Slab', serif; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; }
+
+.active {
+  display: block; }
+
+section {
+  display: none;
+  width: 80%;
+  margin: auto; }
+
+.button, .logoutButton, #userPage #submitRequest, #userPage .deleteButton, #driverPage .acceptButton {
+  border: 1px solid black; }
+  .button:hover, .logoutButton:hover, #userPage #submitRequest:hover, #userPage .deleteButton:hover, #driverPage .acceptButton:hover {
+    cursor: pointer; }
+
+#bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: url("./fetch-bg.jpeg");
+  background-position-y: 28%;
+  background-position-x: 55%;
+  background-size: 160%; }
+
+#tint {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(19, 67, 123, 0.85); }
+
+#loginBox {
+  width: 250px;
+  height: 300px;
+  padding: 6px;
+  color: white;
+  background: #2363ad;
+  margin: 18% auto;
+  text-align: center;
+  border-radius: 7px;
+  box-shadow: 0px 3px 16px 2px rgba(0, 0, 0, 0.71); }
+  #loginBox h2 {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 72px;
+    font-family: 'Lobster', cursive; }
+  #loginBox p {
+    margin-top: 0;
+    font-size: 14px; }
+  #loginBox form {
+    margin: 45px auto; }
+  #loginBox input, #loginBox #letsGo, #loginBox button {
+    margin: 12px auto;
+    display: block; }
+  #loginBox input {
+    padding: 4px;
+    font-size: 14px;
+    text-align: center; }
+  #loginBox label {
+    font-size: 14px;
+    margin: 4px; }
+  #loginBox select {
+    font-size: 16px; }
+  #loginBox #letsGo {
+    font-size: 20px;
+    padding: 8px;
+    width: 70px;
+    font-family: 'Lobster', cursive;
+    border: 1px solid; }
 
 header {
   width: 100%;
   background-color: #4E04D8;
-  height: 50px;
+  height: 200px;
   border-bottom: 5px solid #E6E6E6; }
 
 h1 {
@@ -24,6 +94,14 @@ h1 {
   border: 5px solid #4E04D8;
   box-shadow: 5px 5px 5px black;
   padding: 20px; }
+
+#userPage div {
+  border: 1px solid black;
+  margin: 10px; }
+
+#driverPage div {
+  border: 1px solid black;
+  margin: 10px; }
 
 .requestContainer {
   width: 80%;
