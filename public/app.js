@@ -57,7 +57,8 @@ var fetchApp = {
     // ALL OUR CLICK EVENTS WILL LIVE HERE
 
     // ON LOGIN FORM SUBMISSION
-    $('#letsGo').on('click', function () {
+    $('form').on('submit', function (event) {
+      event.preventDefault();
       if ($('select[name=userType]').val() === 'newUser') {
         var username = $('input[name="userName"]').val();
         fetchApp.addNewUser(username);
@@ -121,7 +122,7 @@ var fetchApp = {
       method: 'POST',
       data: userName,
       success: function(user) {
-        console.log("gave username to james");
+        console.log("added username to james" + userName);
       },
       error: function(err) {
         console.log("ERROR", err);
@@ -131,19 +132,13 @@ var fetchApp = {
 
   loginUser: function(userName) {
     $.ajax({
-      url: fetchApp.urls.user,
+      url: fetchApp.urls.loginUser,
       method: 'POST',
-      data: userName,
+      data: {name: userName},
       success: function(response) {
-        console.log("added" + userName);
+        console.log("logged in" + userName);
       },
     });
-  },
-
-  getUserRequests: function(userId) {
-      // will filter requests matching the userId
-      // these will be requests the user has posted,
-      // but have not yet had delivered
   },
 
   getUserRequests: function() {
@@ -153,6 +148,9 @@ var fetchApp = {
      success: function(requests){
        console.log("gotit"+requests)
      },
+     error: function (err) {
+       console.log("error: ", err);
+     }
    });
   },
 
