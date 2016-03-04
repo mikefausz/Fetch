@@ -7,16 +7,23 @@ body {
   font-family: sans-serif; }
 
 .active {
-  display: inline-block; }
+  display: block; }
 
 section {
-  display: none; }
+  display: none;
+  width: 80%;
+  margin: auto; }
+
+.button, .logoutButton, #userPage #submitRequest, #userPage .deleteButton, #driverPage .acceptButton {
+  border: 1px solid black; }
+  .button:hover, .logoutButton:hover, #userPage #submitRequest:hover, #userPage .deleteButton:hover, #driverPage .acceptButton:hover {
+    cursor: pointer; }
 
 #bg {
   position: absolute;
   height: 100%;
   width: 100%;
-  background-image: url("https://images.unsplash.com/photo-1456143077270-30de0a1bf7bc?crop=entropy&dpr=2&fit=crop&fm=jpg&h=725&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1300");
+  background-image: url("./fetch-bg.jpeg");
   background-position-y: 28%;
   background-position-x: 55%;
   background-size: 160%; }
@@ -69,7 +76,7 @@ section {
 header {
   width: 100%;
   background-color: #4E04D8;
-  height: 50px;
+  height: 200px;
   border-bottom: 5px solid #E6E6E6; }
 
 h1 {
@@ -86,6 +93,14 @@ h1 {
   border: 5px solid #4E04D8;
   box-shadow: 5px 5px 5px black;
   padding: 20px; }
+
+#userPage div {
+  border: 1px solid black;
+  margin: 10px; }
+
+#driverPage div {
+  border: 1px solid black;
+  margin: 10px; }
 
 .requestContainer {
   width: 80%;

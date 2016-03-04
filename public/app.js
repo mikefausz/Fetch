@@ -60,6 +60,12 @@ var fetchApp = {
       }
     });
 
+    $('.logoutButton').on('click', function () {
+      $('#loginPage').addClass('active');
+      $('#loginPage').siblings().removeClass('active');
+      // clear user data from local storage
+    });
+
     // ON NEW REQUEST FORM SUBMISSION (USER SIDE)
       // get value of request text input
       // add new request to database and DOM

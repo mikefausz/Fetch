@@ -35,27 +35,54 @@
       <header>
         <h1>FETCH<h1>
           <h2>USER PAGE</h2>
+          <div class="logoutButton">
+            Logout
+          </div>
       </header>
-      <div class="requestContainer">
-        <h2>Fetch List 1<h2>
-        <form class="sendRequest">
-          <input type="text" name="itemslist">
-          <input type="button" name="send">
-        </form>
+      <!-- <div class="requestContainer"> -->
+        <div id="newRequest">
+          <h2>New Request</h2>
+          <form >
+            <label for="">Request</label>
+            <textarea placeholder="What do you need?" rows="4" cols="50"></textarea>
+            <div id="submitRequest">Submit request</div>
+            <!-- <input type="button" name="send"> -->
+          </form>
+
+        </div>
+        <h2>Your Open Requests</h2>
+      <div class="userRequest">
+        <h3>Get me 2 beef Doritos Locos tacos</h3>
+        <p>Status: Accepted/Open</p>
+        <p>Driver name(if accepted)</p>
+        <div class="deleteButton">
+          Request completed
+        </div>
+        <div class="deleteButton">
+          Delete request
+        </div>
       </div>
-      <div class="requestContainer">
-        <h2>Fetch List 1<h2>
-        <form class="sendRequest">
-          <input type="text" name="itemslist">
-          <input type="button" name="send">
-        </form>
+      <div class="userRequest">
+        <h3>I need a bottle of wine</h3>
+        <p>Status: Accepted/Open</p>
+        <p>Driver name(if accepted)</p>
+        <div class="deleteButton">
+          Request completed
+        </div>
+        <div class="deleteButton">
+          Delete request
+        </div>
       </div>
-      <div class="requestContainer">
-        <h2>Fetch List 1<h2>
-        <form class="sendRequest">
-          <input type="text" name="itemslist">
-          <input type="button" name="send">
-        </form>
+      <div class="userRequest">
+        <h3>Pick me up some ramen</h3>
+        <p>Status: Accepted/Open</p>
+        <p>Driver name(if accepted)</p>
+        <div class="deleteButton">
+          Request completed
+        </div>
+        <div class="deleteButton">
+          Delete request
+        </div>
       </div>
     </section>
 
@@ -63,28 +90,57 @@
       <header>
         <h1>FETCH<h1>
           <h2>DRIVER PAGE</h2>
+          <div class="logoutButton">
+            Logout
+          </div>
       </header>
-      <div class="requestContainer">
-        <h2>Fetch List 1<h2>
-        <form class="sendRequest">
-          <input type="text" name="itemslist">
-          <input type="button" name="send">
-        </form>
+      <h2>Your Accepted Requests</h2>
+      <div class="acceptedRequest">
+        <h3>Pick me up some ramen</h3>
+        <p>User name</p>
+        <!-- <div class="deleteButton">
+          Cancel Request
+        </div> -->
       </div>
-      <div class="requestContainer">
-        <h2>Fetch List 1<h2>
-        <form class="sendRequest">
-          <input type="text" name="itemslist">
-          <input type="button" name="send">
-        </form>
+      <div class="acceptedRequest">
+        <h3>Pick me up some ramen</h3>
+        <p>User name</p>
+        <!-- <div class="deleteButton">
+          Cancel Request
+        </div> -->
       </div>
-      <div class="requestContainer">
-        <h2>Fetch List 1<h2>
-        <form class="sendRequest">
-          <input type="text" name="itemslist">
-          <input type="button" name="send">
-        </form>
+
+      <h2>All Open Requests</h2>
+
+      <div class="userRequest">
+        <h3>Pick me up some ramen</h3>
+        <p>User name</p>
+        <div class="acceptButton">
+          Accept request
+        </div>
       </div>
+      <div class="userRequest">
+        <h3>Get me some weed</h3>
+        <p>User name</p>
+        <div class="acceptButton">
+          Accept request
+        </div>
+      </div>
+      <div class="userRequest">
+        <h3>I need Cheez Doodles</h3>
+        <p>User name</p>
+        <div class="acceptButton">
+          Accept request
+        </div>
+      </div>
+      <div class="userRequest">
+        <h3>Flour, milk, eggs</h3>
+        <p>User name</p>
+        <div class="acceptButton">
+          Accept request
+        </div>
+      </div>
+
     </section>
 
   <script src="bower_components/underscore/underscore.js"></script>
