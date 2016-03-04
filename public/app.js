@@ -6,16 +6,21 @@ $(document).ready(function() {
 templates = [];
 
 templates.userRequest = [
-      "<div data-id='<%= id %>'>",
-      "<div class='userRequest'>",
-        "<h4><%=string%></h4>",
-        "<p><%=confirm?%></p>",
-        "<p><%=driverName%></p>",
-      "</div>"].join("");
+  // this will be the HTML for the request listings
+  // that the USER sees
+  // will have a DRIVER name if accepted
+].join("");
 
-templates.driverRequest = [
+templates.acceptedRequest = [
   // very similar to above except
   // this will be the HTML for the request listings
+  // that the DRIVER has accepted but not completed
+  // will have USER name on it
+].join("");
+
+templates.openRequest = [
+  // very similar to above except
+  // this will be the HTML for the  open request listings
   // that the DRIVER sees
   // will have USER name on it
 ].join("");
@@ -23,14 +28,15 @@ templates.driverRequest = [
 
 var fetchApp = {
   urls: {
-    usersUrl: 'http://tiny-tiny.herokuapp.com/collections/users',
-    driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
-    requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
-    // URL PATHS JAMES CREATES WILL GO HERE
-
-    // driversUrl: '/drivers',
-    // usersUrl: '/users',
-    // requestsUrl: '/requests',      ..or something along these lines
+    // usersUrl: 'http://tiny-tiny.herokuapp.com/collections/users',
+    // driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
+    // requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
+    // URL ROUTES JAMES CREATES WILL GO HERE
+    userUrl:          '/user',
+    driversUrl:       '/login-Driver',
+    usersUrl:         '/login-User',
+    userRequestsUrl:  '/user-requests',
+    requestUrl:       '/request',
   },
 
   // MAYBE SOME EMPTY OBJECTS TO STORE 'GET' DATA LOCALLY
@@ -55,12 +61,14 @@ var fetchApp = {
       $('#loginPage').removeClass('active');
       if ($('select[name=userType]').val() === 'user') {
         $('#userPage').addClass('active');
-        // fetchApp.getUserId()
+        var username = $('input[name="username"]').val();
+        fetchApp.postUserId(username);
         // add only this user's open requests to DOM
       }
       else {
         $('#driverPage').addClass('active');
         // fetchApp.getDriverId(username)
+        // IF user not in database addUser(username)
         // add this driver's accepted requests
         // followed by all open requests to DOM
       }
@@ -69,32 +77,11 @@ var fetchApp = {
     $('.logoutButton').on('click', function () {
       $('#loginPage').addClass('active');
       $('#loginPage').siblings().removeClass('active');
-      // clear user data from local storage
     });
-
 
     // ON NEW REQUEST FORM SUBMISSION (USER SIDE)
       // get value of request text input
       // add new request to database and DOM
-      onNewRequest: function(data, reqStr, $target){
-        var tmpl =_.templates.userRequest(reqStr);
-        $target.append(data);
-      },
-      addNewRequest: function(newReq){
-        $.ajax({
-        type: "POST",
-        url: 'http://tiny-tiny.herokuapp.com/collections/requests',
-        data: newReq,
-        success: addNewRequestToDom,
-        });
-      },
-      addNewRequestToDom: function(){
-
-      },
-      PostNewRequest: function(){
-
-      },
-
 
     // ON DELETE/COMPLETE REQUEST BUTTON CLICK (USER SIDE)
       // delete request from database and DOM
@@ -104,11 +91,23 @@ var fetchApp = {
   },
 
   // ALL THE OTHER FUNCTIONS WE WRITE WILL GO HERE
-  getDriverId: function(driverName) {
-      // ajax GET call to driversUrl
-      // will find a driver object matching driverName in JSON
-      // will get driver_id from driver object
-           // then will call getDriverRequests matching that driver_id
+  postDriverId: function(driverName) {
+    $.ajax({
+      url: fetchApp.urls.driversUrl,
+      method: 'POST',
+      data: userName,
+      success: function(driver) {
+        console.log("gave drivername name to james");
+      },
+      error: function(err) {
+        console.log("ERROR", err);
+      },
+    });
+  },
+
+  addNewDriver: function(driverName) {
+      // ajax POST call to driversUrl
+      // will add a new driver object to database
   },
 
   getDriverRequests: function(driverId) {
@@ -117,10 +116,29 @@ var fetchApp = {
       // fulfill, but has not yet completed
   },
 
-  getUserId: function(userName) {
-    // ajax GET call to usersUrl
-    // will find a user object matching userName in JSON
-    // will get user_id from driver object
+  postUserId: function(userName) {
+    $.ajax({
+      url: fetchApp.urls.usersUrl,
+      method: 'POST',
+      data: userName,
+      success: function(user) {
+        console.log("gave username to james");
+      },
+      error: function(err) {
+        console.log("ERROR", err);
+      },
+    });
+  },
+
+  addNewUser: function(userName) {
+    $.ajax({
+      url: fetchApp.urls.userUrl,
+      method: 'POST',
+      data: userName,
+      success: function(response) {
+        console.log("added" + userName);
+      },
+    });
   },
 
   getUserRequests: function(userId) {
@@ -129,14 +147,26 @@ var fetchApp = {
       // but have not yet had delivered
   },
 
-  getRequests: function() {
-    // ajax GET call to requestsUrl
-    // will return ALL existing requests to be filtered by other functions
+  getUserRequests: function() {
+    $ajax({
+      url: fetchApp.urls.userRequestsUrl,
+      method:"GET",
+      success:function(response){
+        console.log('hey, heres a request'+response)
+      },
+    });
   },
 
-  addRequest: function(request) {
-    // ajax POST call to requestsUrl
-    // will add new request object to JSON object
+  addRequest: function(requestText) {
+    $.ajax({
+      url: fetchApp.urls.requestUrl,
+      method: 'POST',
+      data: requestText,
+      success: function(response) {
+        console.log("gave new request to james");
+      },
+    });
+    // now needs to add to DOM
   },
 
   acceptRequest: function(requestId, driverId) {
@@ -153,6 +183,18 @@ var fetchApp = {
 
   addRequestsToDom: function(requests) {
     // will add the given requests to the DOM
+  },
+
+  buildUserRequestHtml: function(request) {
+    // will use userRequest template and underscore
+  },
+
+  buildAcceptedRequestHtml: function(request) {
+    // will use acceptedRequest template and underscore
+  },
+
+  buildOpenRequestHtml: function(request) {
+    // will use openRequest template and underscore
   },
 
 };

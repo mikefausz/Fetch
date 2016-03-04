@@ -12,21 +12,22 @@
     <section id="loginPage" class="active">
       <div id="bg">
         <div id="tint">
-        <div id="loginBox">
-        <h2>Fetch!</h2>
-        <p>An anything delivery service</p>
-        <form>
-          <input type="text" class="nameInput" placeholder="Username">
-          <label for="userType">I am a: </label>
-          <select name="userType">
-            <option value="user">User</option>
-            <option value="driver">Driver</option>
-          </select>
-          <div class="button" id="letsGo">Let's go!</div>
-          <!-- <button class="loginButton" type="button" name="button">Let's Go!</button> -->
-        </form>
-
-        </div>
+          <div id="loginBox">
+            <h2>Fetch!</h2>
+            <p>An anything delivery service</p>
+            <form>
+              <input type="text" name="userName" placeholder="Username">
+              <label for="userType">I am a: </label>
+              <select name="userType">
+                <option value="newUser">New User</option>
+                <option value="user">Returning User</option>
+                <option value="newDriver">New Driver</option>
+                <option value="driver">Returning Driver</option>
+              </select>
+              <div class="button" id="letsGo">Let's go!</div>
+              <!-- <button class="loginButton" type="button" name="button">Let's Go!</button> -->
+            </form>
+          </div>
         </div>
       </div>
     </section>
@@ -60,7 +61,17 @@
         </div>
 
         <div class="requestContainer">
-          
+          <div class="userRequest">
+            <h4>Get me 2 beef Doritos Locos tacos</h4>
+            <p>Status: Accepted/Open</p>
+            <p>Driver name(if accepted)</p>
+            <div class="deleteButton">
+              Completed
+            </div>
+            <div class="deleteButton">
+              Cancel
+            </div>
+          </div>
           <div class="userRequest">
             <h4>Get me 2 beef Doritos Locos tacos</h4>
             <p>Status: Accepted/Open</p>
@@ -87,6 +98,7 @@
     </section>
 
     <section id="driverPage">
+
       <header>
         <h1>Fetch!<h1>
           <h2>DRIVER PAGE</h2>
@@ -94,7 +106,9 @@
             Logout
           </div>
       </header>
+
       <div id="acceptedBlock">
+
         <div class="headerCol">
           <h2>Your Accepted Requests</h2>
         </div>
@@ -120,43 +134,41 @@
       <div class="headerCol">
         <h2>All Open Requests</h2>
       </div>
+
       <div class="requestContainer">
-
-
-      <div class="userRequest">
-        <h3>Pick me up some ramen</h3>
-        <p>User name</p>
-        <div class="acceptButton">
-          Accept request
+        <div class="openRequest">
+          <h3>Pick me up some ramen</h3>
+          <p>User name</p>
+          <div class="acceptButton">
+            Accept request
+          </div>
         </div>
-      </div>
-      <div class="userRequest">
-        <h3>Get me some weed</h3>
-        <p>User name</p>
-        <div class="acceptButton">
-          Accept request
+        <div class="openRequest">
+          <h3>Get me some weed</h3>
+          <p>User name</p>
+          <div class="acceptButton">
+            Accept request
+          </div>
         </div>
-      </div>
-      <div class="userRequest">
-        <h3>I need Cheez Doodles</h3>
-        <p>User name</p>
-        <div class="acceptButton">
-          Accept request
+        <div class="openRequest">
+          <h3>I need Cheez Doodles</h3>
+          <p>User name</p>
+          <div class="acceptButton">
+            Accept request
+          </div>
         </div>
-      </div>
-      <div class="userRequest">
-        <h3>Flour, milk, eggs</h3>
-        <p>User name</p>
-        <div class="acceptButton">
-          Accept request
+        <div class="openRequest">
+          <h3>Flour, milk, eggs</h3>
+          <p>User name</p>
+          <div class="acceptButton">
+            Accept request
+          </div>
         </div>
-      </div>
       </div>
     </section>
 
   <script src="bower_components/underscore/underscore.js"></script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="app.js"></script>
-
   </body>
 </html>
