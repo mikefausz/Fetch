@@ -121,6 +121,9 @@ public class Main {
                 "/driver",
                 ((request, response) -> {
                     String driver = request.queryParams("driver");
+                    if(driver==null){
+                        Spark.halt(400, "Driver Not Found");
+                    }
                     JsonSerializer s = new JsonSerializer();
                     return s.serialize(selectDriver(conn, driver));
                 })
@@ -137,6 +140,9 @@ public class Main {
                 "/user",
                 ((request, response) -> {
                     String user = request.queryParams("user");
+                    if(user==null){
+                        Spark.halt(400, "User Not Found");
+                    }
                     JsonSerializer s = new JsonSerializer();
                     return s.serialize(selectUser(conn, user));
                 })
@@ -153,6 +159,10 @@ public class Main {
                 "/request",
                 ((request, response) -> {
                     User user = getUserFromSession(request.session());
+                    if(user==null){
+                        Spark.halt(400, "User Not Logged In");
+                        return "";
+                    }
                     String requestText = request.queryParams("requestText");
                     insertRequest(conn, user.id, requestText);
                     return "";
@@ -162,6 +172,10 @@ public class Main {
                 "/user-requests",
                 ((request, response) -> {
                     User user = getUserFromSession(request.session());
+                    if(user==null){
+                        Spark.halt(400, "User Not Logged In");
+                        return "";
+                    }
                     JsonSerializer s = new JsonSerializer();
                     return s.serialize(selectUserRequests(conn, user.id));
                 })
@@ -170,6 +184,10 @@ public class Main {
                 "/driver-requests",
                 ((request, response) -> {
                     Driver driver = getDriverFromSession(request.session());
+                    if(driver==null){
+                        Spark.halt(400, "Driver Not Logged In");
+                        return "";
+                    }
                     JsonSerializer s = new JsonSerializer();
                     return s.serialize(selectDriverRequests(conn, driver.id));
                 })
@@ -178,6 +196,10 @@ public class Main {
                 "/update-request",
                 ((request, response) -> {
                     Driver driver = getDriverFromSession(request.session());
+                    if(driver==null){
+                        Spark.halt(400, "Driver Not Logged In");
+                        return "";
+                    }
                     String status = request.queryParams("status");
                     String requestIdStr = request.queryParams("id");
                     if(!requestIdStr.isEmpty()) {

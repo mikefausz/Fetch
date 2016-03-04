@@ -133,7 +133,7 @@ var fetchApp = {
     $.ajax({
       url: fetchApp.urls.user,
       method: 'POST',
-      data: userName,
+      data: {name:userName},
       success: function(response) {
         console.log("added" + userName);
       },
