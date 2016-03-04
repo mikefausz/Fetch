@@ -4,7 +4,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  background-color: #2363ad; }
 
 .active {
   display: block; }
@@ -40,7 +41,7 @@ section {
   padding: 6px;
   color: white;
   background: #2363ad;
-  margin: 18% auto;
+  margin: 15% auto;
   text-align: center;
   border-radius: 7px;
   box-shadow: 0px 3px 16px 2px rgba(0, 0, 0, 0.71); }
@@ -48,10 +49,12 @@ section {
     margin-top: 10px;
     margin-bottom: 0;
     font-size: 72px;
-    font-family: 'Lobster', cursive; }
+    font-family: 'Lobster', cursive;
+    text-shadow: 2px 2px 2px black; }
   #loginBox p {
     margin-top: 0;
-    font-size: 14px; }
+    font-size: 14px;
+    text-shadow: 2px 2px 2px black; }
   #loginBox form {
     margin: 45px auto; }
   #loginBox input, #loginBox #letsGo, #loginBox button {
@@ -63,7 +66,8 @@ section {
     text-align: center; }
   #loginBox label {
     font-size: 14px;
-    margin: 4px; }
+    margin: 4px;
+    text-shadow: 1px 1px 1px black; }
   #loginBox select {
     font-size: 16px; }
   #loginBox #letsGo {
@@ -71,11 +75,11 @@ section {
     padding: 8px;
     width: 70px;
     font-family: 'Lobster', cursive;
-    border: 1px solid; }
+    box-shadow: .25px .5px .25px .25px black; }
 
 header {
   width: 100%;
-  background-color: #4E04D8;
+  background-color: #2363ad;
   height: 200px;
   border-bottom: 5px solid #E6E6E6; }
 
@@ -83,7 +87,7 @@ h1 {
   font-size: 20px;
   color: white;
   text-align: center;
-  font-family: sans-serif;
+  font-family: 'Lobster', cursive;
   text-shadow: 5px 5px 5px black; }
 
 #login {
@@ -96,11 +100,13 @@ h1 {
 
 #userPage div {
   border: 1px solid black;
-  margin: 10px; }
+  margin: 10px;
+  background: white; }
 
 #driverPage div {
   border: 1px solid black;
-  margin: 10px; }
+  margin: 10px;
+  background: white; }
 
 .requestContainer {
   width: 80%;
