@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
   fetchApp.init();
 });
@@ -68,6 +69,7 @@ var fetchApp = {
         $('#loginPage').removeClass('active');
         var username = $('input[name="userName"]').val();
         fetchApp.loginUser(username);
+        fetchApp.getUserRequests();
         // add only this user's open requests to DOM
       }
       else if ($('select[name=userType]').val() === 'newDriver') {
@@ -101,19 +103,6 @@ var fetchApp = {
   },
 
   // ALL THE OTHER FUNCTIONS WE WRITE WILL GO HERE
-  postDriverId: function(driverName) {
-    $.ajax({
-      url: fetchApp.urls.driver,
-      method: 'POST',
-      data: JSON.stringify(driverName),
-      success: function(driver) {
-        console.log("gave drivername name to james");
-      },
-      error: function(err) {
-        console.log("ERROR", err);
-      },
-    });
-  },
 
   addNewDriver: function(driverName) {
       // ajax POST call to driversUrl
@@ -157,14 +146,19 @@ var fetchApp = {
       // but have not yet had delivered
   },
 
-  getRequests: function() {
-    // ajax GET call to requestsUrl
-    // will return ALL existing requests to be filtered by other functions
+  getUserRequests: function() {
+   $.ajax({
+     url: fetchApp.urls.userRequests,
+     method:"GET",
+     success: function(requests){
+       console.log("gotit"+requests)
+     },
+   });
   },
 
   addRequest: function(requestText) {
     $.ajax({
-      url: fetchApp.requestUrl,
+      url: fetchApp.urls.request,
       method: 'POST',
       data: requestText,
       success: function(response) {
