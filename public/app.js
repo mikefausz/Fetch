@@ -33,8 +33,8 @@ var fetchApp = {
     // requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
     // URL ROUTES JAMES CREATES WILL GO HERE
     user:          '/user',
-    loginDriver:       '/login-Driver',
-    loginUser:         '/login-User',
+    loginDriver:   '/login-Driver',
+    loginUser:     '/login-User',
     userRequests:  '/user-requests',
     request:       '/request',
   },
@@ -68,6 +68,7 @@ var fetchApp = {
         $('#loginPage').removeClass('active');
         var username = $('input[name="userName"]').val();
         fetchApp.loginUser(username);
+        fetchApp.getUserRequests();
         // add only this user's open requests to DOM
       }
       else if ($('select[name=userType]').val() === 'newDriver') {
@@ -148,10 +149,10 @@ var fetchApp = {
   getUserRequests: function() {
    $.ajax({
      url: fetchApp.urls.userRequests,
-     method:"GET"
+     method:"GET",
      success: function(requests){
        console.log("gotit"+requests)
-     }
+     },
    });
   },
 
