@@ -110,7 +110,7 @@ public class Main {
                 })
         );
         Spark.get(
-                "/getDriver",
+                "/driver",
                 ((request, response) -> {
                     String driver = request.queryParams("driver");
                     JsonSerializer s = new JsonSerializer();
