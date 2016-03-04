@@ -66,10 +66,11 @@ public class Main {
         }
         return driverRequests;
     }
-    public static void updateStatus(Connection conn, int id, String status) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("UPDATE requests SET status = ? WHERE id = ?");
+    public static void updateStatus(Connection conn, int id, String status, int driverId) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("UPDATE requests SET status = ?, driver_id = ? WHERE id = ?");
         stmt.setString(1, status);
-        stmt.setInt(2, id);
+        stmt.setInt(2, driverId);
+        stmt.setInt(3, id);
         stmt.execute();
     }
     public static User getUserFromSession(Session session){
@@ -85,6 +86,11 @@ public class Main {
         createTables(conn);
         Spark.externalStaticFileLocation("public");
         Spark.init();
+        insertUser(conn, "Bob");
+        insertDriver(conn, "Tom");
+        insertRequest(conn, 1, "This is a request");
+        updateStatus(conn, 1, "Request Received", 1);
+
         Spark.post(
                 "/login-User",
                 ((request, response) -> {
@@ -171,12 +177,12 @@ public class Main {
         Spark.post(
                 "/update-request",
                 ((request, response) -> {
-                    User user = getUserFromSession(request.session());
+                    Driver driver = getDriverFromSession(request.session());
                     String status = request.queryParams("status");
                     String requestIdStr = request.queryParams("id");
                     if(!requestIdStr.isEmpty()) {
                         int requestId = Integer.valueOf(requestIdStr);
-                        updateStatus(conn, requestId, status);
+                        updateStatus(conn, requestId, status, driver.id);
                     }
                     return "";
                 })
