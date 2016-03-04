@@ -11,7 +11,7 @@ body {
   font-family: sans-serif;
   background-color: $blue;
   // background-image: url('./fetch-bg.jpeg');
-// background-attachment: fixed;
+  // background-attachment: fixed;
 }
 
 .active{
@@ -44,7 +44,6 @@ section {
   position: absolute;
     height: 100%;
     width: 100%;
-    // background-image: url("https://jmhandinhand.files.wordpress.com/2012/05/img_2056.jpg");
     // background-image: url("https://images.unsplash.com/photo-1456143077270-30de0a1bf7bc?crop=entropy&dpr=2&fit=crop&fm=jpg&h=725&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1300");
     background-image: url('./fetch-bg.jpeg');
     background-position-y: 28%;
@@ -146,6 +145,11 @@ h1{
   width: 30%;
 }
 
+.requestContainer{
+  display: inline-block;
+  width: 65%;
+}
+
 #userPage {
   h3 {
     vertical-align: top;
@@ -161,12 +165,10 @@ h1{
     margin: 10px;
     background: white;
   }
-
   #requestFormBox {
     display: inline-block;
         width: 65%;
   }
-
   #submitRequest {
     @extend .button;
   }
@@ -177,9 +179,12 @@ h1{
 }
 
 #driverPage {
+<<<<<<< HEAD
   #acceptedBlock {
 
   }
+=======
+>>>>>>> 7f49f156667af367005c90129c15c9c418840033
   .userRequest, .acceptedRequest {
     width: 100%;
     border: 1px solid black;
@@ -192,9 +197,4 @@ h1{
   .acceptButton {
     @extend .button;
   }
-}
-
-.requestContainer{
-  display: inline-block;
-  width: 65%;
 }

@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Main {
+    static String status = "OPEN";
     public static void createTables(Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
         stmt.execute("CREATE TABLE IF NOT EXISTS users (id IDENTITY, name VARCHAR)");
@@ -18,14 +19,15 @@ public class Main {
         stmt.execute();
     }
     public static void insertDriver(Connection conn, String name) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO drivers VALUES (NULL, ?");
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO drivers VALUES (NULL, ?)");
         stmt.setString(1, name);
         stmt.execute();
     }
     public static void insertRequest(Connection conn, int userId, String request) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO requests VALUES (NULL, ?, NULL, ?, OPEN");
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO requests VALUES (NULL, ?, NULL, ?, ?)");
         stmt.setInt(1, userId);
         stmt.setString(2, request);
+        stmt.setString(3, status);
         stmt.execute();
     }
     public static User selectUser(Connection conn, String name) throws SQLException {
@@ -37,7 +39,7 @@ public class Main {
         return user;
     }
     public static Driver selectDriver(Connection conn, String name) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE name = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM drivers WHERE name = ?");
         stmt.setString(1, name);
         ResultSet results = stmt.executeQuery();
         results.next();
@@ -45,7 +47,7 @@ public class Main {
         return driver;
     }
     public static ArrayList<Request> selectUserRequests(Connection conn, int userId) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM request WHERE user_id = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM requests WHERE user_id = ?");
         stmt.setInt(1, userId);
         ResultSet results = stmt.executeQuery();
         ArrayList<Request> userRequests = new ArrayList<>();
@@ -55,7 +57,7 @@ public class Main {
         return userRequests;
     }
     public static ArrayList<Request> selectDriverRequests(Connection conn, int driverId) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM request WHERE driver_id = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM requests WHERE driver_id = ?");
         stmt.setInt(1, driverId);
         ResultSet results = stmt.executeQuery();
         ArrayList<Request> driverRequests = new ArrayList<>();
@@ -66,8 +68,8 @@ public class Main {
     }
     public static void updateStatus(Connection conn, int id, String status) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("UPDATE requests SET status = ? WHERE id = ?");
-        stmt.setInt(1, id);
-        stmt.setString(2, status);
+        stmt.setString(1, status);
+        stmt.setInt(2, id);
         stmt.execute();
     }
     public static User getUserFromSession(Session session){
