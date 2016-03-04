@@ -31,11 +31,12 @@ var fetchApp = {
     // driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
     // requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
     // URL ROUTES JAMES CREATES WILL GO HERE
-    user:          '/user',
+    user:              '/user',
     loginDriver:       '/login-Driver',
     loginUser:         '/login-User',
-    userRequests:  '/user-requests',
-    request:       '/request',
+    driver:            '/driver',
+    userRequests:      '/user-requests',
+    request:           '/request',
   },
 
   // MAYBE SOME EMPTY OBJECTS TO STORE 'GET' DATA LOCALLY
@@ -102,7 +103,7 @@ var fetchApp = {
   // ALL THE OTHER FUNCTIONS WE WRITE WILL GO HERE
   postDriverId: function(driverName) {
     $.ajax({
-      url: 'user',
+      url: fetchApp.urls.driver,
       method: 'POST',
       data: JSON.stringify(driverName),
       success: function(driver) {
