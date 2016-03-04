@@ -111,6 +111,10 @@ h1 {
   vertical-align: top;
   width: 30%; }
 
+.requestContainer {
+  display: inline-block;
+  width: 65%; }
+
 #userPage h3 {
   vertical-align: top;
   color: white;
@@ -140,7 +144,3 @@ h1 {
 
 #driverPage h2 {
   color: white; }
-
-.requestContainer {
-  display: inline-block;
-  width: 65%; }
