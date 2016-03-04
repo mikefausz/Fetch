@@ -15,9 +15,17 @@ section {
   width: 80%;
   margin: auto; }
 
-.button, .logoutButton, #userPage #submitRequest, #userPage .deleteButton, #driverPage .acceptButton {
-  border: 1px solid black; }
-  .button:hover, .logoutButton:hover, #userPage #submitRequest:hover, #userPage .deleteButton:hover, #driverPage .acceptButton:hover {
+.button, #loginBox #letsGo, .logoutButton, #userPage #submitRequest, #userPage .deleteButton, #driverPage .acceptButton {
+  border: 1px solid black;
+  width: 100px;
+  padding: 4px;
+  margin: auto;
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  box-shadow: .25px .5px .25px .25px black;
+  color: white;
+  background: #2363ad; }
+  .button:hover, #loginBox #letsGo:hover, .logoutButton:hover, #userPage #submitRequest:hover, #userPage .deleteButton:hover, #driverPage .acceptButton:hover {
     cursor: pointer; }
 
 #bg {
@@ -73,22 +81,22 @@ section {
   #loginBox #letsGo {
     font-size: 20px;
     padding: 8px;
-    width: 70px;
-    font-family: 'Lobster', cursive;
-    box-shadow: .25px .5px .25px .25px black; }
+    width: 70px; }
 
 header {
   width: 100%;
   background-color: #2363ad;
-  height: 200px;
+  text-align: center;
   border-bottom: 5px solid #E6E6E6; }
 
 h1 {
-  font-size: 20px;
+  font-size: 5rem;
+  margin: 20px 0 0 0;
+  display: inline-block;
   color: white;
   text-align: center;
   font-family: 'Lobster', cursive;
-  text-shadow: 5px 5px 5px black; }
+  text-shadow: 2px 2px 2px black; }
 
 #login {
   width: 50%;
@@ -98,20 +106,41 @@ h1 {
   box-shadow: 5px 5px 5px black;
   padding: 20px; }
 
-#userPage div {
+.headerCol {
+  display: inline-block;
+  vertical-align: top;
+  width: 30%; }
+
+#userPage h3 {
+  vertical-align: top;
+  color: white;
+  margin: 0; }
+
+#userPage h2 {
+  display: inline-block;
+  color: white; }
+
+#userPage #requestFormBox, #userPage .userRequest {
   border: 1px solid black;
   margin: 10px;
   background: white; }
 
-#driverPage div {
+#userPage #requestFormBox {
+  display: inline-block;
+  width: 65%; }
+
+#userPage .deleteButton {
+  display: inline-block; }
+
+#driverPage .userRequest, #driverPage .acceptedRequest {
+  width: 100%;
   border: 1px solid black;
   margin: 10px;
   background: white; }
+
+#driverPage h2 {
+  color: white; }
 
 .requestContainer {
-  width: 80%;
-  height: 100px;
-  border: 5px double #E6E6E6;
-  margin: 0 auto;
-  box-shadow: 5px 5px 5px black;
-  margin-bottom: 2%; }
+  display: inline-block;
+  width: 65%; }

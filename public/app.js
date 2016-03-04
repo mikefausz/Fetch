@@ -20,6 +20,9 @@ templates.driverRequest = [
 
 var fetchApp = {
   urls: {
+    usersUrl: 'http://tiny-tiny.herokuapp.com/collections/users',
+    driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
+    requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
     // URL PATHS JAMES CREATES WILL GO HERE
 
     // driversUrl: '/drivers',

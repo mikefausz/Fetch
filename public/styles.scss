@@ -27,6 +27,14 @@ section {
 
 .button {
   border: 1px solid black;
+  width: 100px;
+  padding: 4px;
+  margin: auto;
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  box-shadow: .25px .5px .25px .25px black;
+  color: white;
+  background: $blue;
   &:hover {
     cursor: pointer;
   }
@@ -95,27 +103,28 @@ section {
     font-size: 16px;
   }
   #letsGo {
+    @extend .button;
     font-size: 20px;
     padding: 8px;
     width: 70px;
-    font-family: 'Lobster', cursive;
-    box-shadow: .25px .5px .25px .25px black;
   }
 }
 
 header{
   width: 100%;
   background-color: $blue;
-  height:200px;
+  text-align: center;
   border-bottom:5px solid #E6E6E6;
 }
 
 h1{
-  font-size: 20px;
-  color: white;
-  text-align: center;
-  font-family: 'Lobster', cursive;
-  text-shadow: 5px 5px 5px black;
+  font-size: 5rem;
+  margin: 20px 0 0 0;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    text-shadow: 2px 2px 2px black;
 }
 
 .logoutButton {
@@ -131,25 +140,54 @@ h1{
   padding: 20px;
 }
 
+.headerCol {
+  display: inline-block;
+  vertical-align: top;
+  width: 30%;
+}
+
 #userPage {
-  div {
+  h3 {
+    vertical-align: top;
+    color: white;
+    margin: 0;
+  }
+  h2 {
+    display: inline-block;
+    color: white;
+  }
+  #requestFormBox, .userRequest {
     border: 1px solid black;
     margin: 10px;
     background: white;
   }
+
+  #requestFormBox {
+    display: inline-block;
+        width: 65%;
+  }
+
   #submitRequest {
     @extend .button;
   }
   .deleteButton {
     @extend .button;
+    display: inline-block;
   }
 }
 
 #driverPage {
-  div {
+  #acceptedBlock {
+    
+  }
+  .userRequest, .acceptedRequest {
+    width: 100%;
     border: 1px solid black;
     margin: 10px;
     background: white;
+  }
+  h2 {
+    color: white;
   }
   .acceptButton {
     @extend .button;
@@ -157,10 +195,6 @@ h1{
 }
 
 .requestContainer{
-  width: 80%;
-  height: 100px;
-  border: 5px double #E6E6E6;
-  margin: 0 auto;
-  box-shadow: 5px 5px 5px black;
-  margin-bottom: 2%;
+  display: inline-block;
+  width: 65%;
 }
