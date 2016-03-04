@@ -2,6 +2,22 @@ $(document).ready(function() {
   fetchApp.init();
 });
 
+templates = [];
+
+templates.userRequest = [
+  // this will be the HTML for the request listings
+  // that the USER sees
+  // will have a DRIVER name if accepted
+].join("");
+
+templates.driverRequest = [
+  // very similar to above except
+  // this will be the HTML for the request listings
+  // that the DRIVER sees
+  // will have USER name on it
+].join("");
+
+
 var fetchApp = {
   urls: {
     // URL PATHS JAMES CREATES WILL GO HERE
@@ -11,6 +27,10 @@ var fetchApp = {
     // requestsUrl: '/requests',      ..or something along these lines
   },
 
+  // MAYBE SOME EMPTY OBJECTS TO STORE 'GET' DATA LOCALLY
+    // ONE FOR USER DATA
+    // ONE FOR OPEN REQUESTS TO BE FILTERED
+
   init: function(){
     fetchApp.initStyling();
     fetchApp.initEvents();
@@ -18,21 +38,37 @@ var fetchApp = {
 
   initStyling: function(){
     // ANY PAGE-LOAD STYLING WILL GO HERE
+    // (probably won't have any)
   },
 
   initEvents: function(){
     // ALL OUR CLICK EVENTS WILL LIVE HERE
 
     // ON LOGIN FORM SUBMISSION
-      // remove visible class from landing page
-      // IF driver
-        // add visible class to driver page
-        // fetchApp.getDriverId(username)
-        // filter requests by driver_id and add to DOM
-      // ELSE (user)
-        // add visible class to user page
+    $('#letsGo').on('click', function () {
+      $('#loginPage').removeClass('active');
+      if ($('select[name=userType]').val() === 'user') {
+        $('#userPage').addClass('active');
         // fetchApp.getUserId()
-        // filter user requests by user_id and add to DOM
+        // add only this user's open requests to DOM
+      }
+      else {
+        $('#driverPage').addClass('active');
+        // fetchApp.getDriverId(username)
+        // add this driver's accepted requests
+        // followed by all open requests to DOM
+      }
+    });
+
+    // ON NEW REQUEST FORM SUBMISSION (USER SIDE)
+      // get value of request text input
+      // add new request to database and DOM
+
+    // ON DELETE/COMPLETE REQUEST BUTTON CLICK (USER SIDE)
+      // delete request from database and DOM
+
+    // ON ACCEPT REQUEST BUTTON CLICK (DRIVER SIDE)
+      // change request status to accepted
   },
 
   // ALL THE OTHER FUNCTIONS WE WRITE WILL GO HERE
@@ -66,7 +102,12 @@ var fetchApp = {
     // will return ALL existing requests to be filtered by other functions
   },
 
-  changeRequestStatus: function(requestId, driverId) {
+  addRequest: function(request) {
+    // ajax POST call to requestsUrl
+    // will add new request object to JSON object
+  },
+
+  acceptRequest: function(requestId, driverId) {
     // ajax PUT call to requestsUrl
     // will change the status of a request from open to committed
     // and add the driverId to the request
