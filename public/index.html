@@ -33,84 +33,105 @@
 
     <section id="userPage">
       <header>
-        <h1>FETCH<h1>
-          <h2>USER PAGE</h2>
+        <h1>Fetch!</h1>
+          <h3>USER PAGE</h3>
           <div class="logoutButton">
             Logout
           </div>
       </header>
       <!-- <div class="requestContainer"> -->
         <div id="newRequest">
-          <h2>New Request</h2>
-          <form >
-            <label for="">Request</label>
-            <textarea placeholder="What do you need?" rows="4" cols="50"></textarea>
-            <div id="submitRequest">Submit request</div>
-            <!-- <input type="button" name="send"> -->
-          </form>
+          <div class="headerCol">
+            <h2>New Request</h2>
+          </div>
+
+          <div id="requestFormBox">
+            <form >
+              <label for="">Request</label>
+              <textarea placeholder="What do you need fetched?" rows="4" cols="50"></textarea>
+              <div id="submitRequest">Submit request</div>
+              <!-- <input type="button" name="send"> -->
+            </form>
+          </div>
 
         </div>
+        <div class="headerCol">
         <h2>Your Open Requests</h2>
-      <div class="userRequest">
-        <h3>Get me 2 beef Doritos Locos tacos</h3>
-        <p>Status: Accepted/Open</p>
-        <p>Driver name(if accepted)</p>
-        <div class="deleteButton">
-          Request completed
         </div>
-        <div class="deleteButton">
-          Delete request
-        </div>
-      </div>
-      <div class="userRequest">
-        <h3>I need a bottle of wine</h3>
-        <p>Status: Accepted/Open</p>
-        <p>Driver name(if accepted)</p>
-        <div class="deleteButton">
-          Request completed
-        </div>
-        <div class="deleteButton">
-          Delete request
-        </div>
-      </div>
-      <div class="userRequest">
-        <h3>Pick me up some ramen</h3>
-        <p>Status: Accepted/Open</p>
-        <p>Driver name(if accepted)</p>
-        <div class="deleteButton">
-          Request completed
-        </div>
-        <div class="deleteButton">
-          Delete request
-        </div>
+
+        <div class="requestContainer">
+          <div class="userRequest">
+            <h4>Get me 2 beef Doritos Locos tacos</h4>
+            <p>Status: Accepted/Open</p>
+            <p>Driver name(if accepted)</p>
+            <div class="deleteButton">
+              Completed
+            </div>
+            <div class="deleteButton">
+              Cancel
+            </div>
+          </div>
+          <div class="userRequest">
+            <h4>Get me 2 beef Doritos Locos tacos</h4>
+            <p>Status: Accepted/Open</p>
+            <p>Driver name(if accepted)</p>
+            <div class="deleteButton">
+              Completed
+            </div>
+            <div class="deleteButton">
+              Cancel
+            </div>
+          </div>
+          <div class="userRequest">
+            <h4>Get me 2 beef Doritos Locos tacos</h4>
+            <p>Status: Accepted/Open</p>
+            <p>Driver name(if accepted)</p>
+            <div class="deleteButton">
+              Completed
+            </div>
+            <div class="deleteButton">
+              Cancel
+            </div>
+          </div>
       </div>
     </section>
 
     <section id="driverPage">
       <header>
-        <h1>FETCH<h1>
+        <h1>Fetch!<h1>
           <h2>DRIVER PAGE</h2>
           <div class="logoutButton">
             Logout
           </div>
       </header>
-      <h2>Your Accepted Requests</h2>
-      <div class="acceptedRequest">
-        <h3>Pick me up some ramen</h3>
-        <p>User name</p>
-        <!-- <div class="deleteButton">
-          Cancel Request
-        </div> -->
-      </div>
-      <div class="acceptedRequest">
-        <h3>Pick me up some ramen</h3>
-        <p>User name</p>
-        <!-- <div class="deleteButton">
-          Cancel Request
-        </div> -->
+      <div id="acceptedBlock">
+        <div class="headerCol">
+          <h2>Your Accepted Requests</h2>
+        </div>
+
+        <div class="requestContainer">
+          <div class="acceptedRequest">
+            <h3>Pick me up some ramen</h3>
+            <p>User name</p>
+            <!-- <div class="deleteButton">
+              Cancel Request
+            </div> -->
+          </div>
+          <div class="acceptedRequest">
+            <h3>Pick me up some ramen</h3>
+            <p>User name</p>
+            <!-- <div class="deleteButton">
+              Cancel Request
+            </div> -->
+          </div>
+        </div>
       </div>
 
-      <h2>All Open Requests</h2>
+      <div class="headerCol">
+        <h2>All Open Requests</h2>
+      </div>
+      <div class="requestContainer">
+
 
       <div class="userRequest">
         <h3>Pick me up some ramen</h3>
@@ -140,11 +161,12 @@
           Accept request
         </div>
       </div>
-
+      </div>
     </section>
 
   <script src="bower_components/underscore/underscore.js"></script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="app.js"></script>
+
   </body>
 </html>
