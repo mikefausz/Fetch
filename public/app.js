@@ -6,10 +6,12 @@ $(document).ready(function() {
 templates = [];
 
 templates.userRequest = [
-  // this will be the HTML for the request listings
-  // that the USER sees
-  // will have a DRIVER name if accepted
-].join("");
+      "<div data-id='<%= id %>'>",
+      "<div class='userRequest'>",
+        "<h4><%=string%></h4>",
+        "<p><%=confirm?%></p>",
+        "<p><%=driverName%></p>",
+      "</div>"].join("");
 
 templates.driverRequest = [
   // very similar to above except
@@ -21,6 +23,9 @@ templates.driverRequest = [
 
 var fetchApp = {
   urls: {
+    usersUrl: 'http://tiny-tiny.herokuapp.com/collections/users',
+    driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
+    requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
     // URL PATHS JAMES CREATES WILL GO HERE
 
     // driversUrl: '/drivers',
@@ -67,9 +72,29 @@ var fetchApp = {
       // clear user data from local storage
     });
 
+
     // ON NEW REQUEST FORM SUBMISSION (USER SIDE)
       // get value of request text input
       // add new request to database and DOM
+      onNewRequest: function(data, reqStr, $target){
+        var tmpl =_.templates.userRequest(reqStr);
+        $target.append(data);
+      },
+      addNewRequest: function(newReq){
+        $.ajax({
+        type: "POST",
+        url: 'http://tiny-tiny.herokuapp.com/collections/requests',
+        data: newReq,
+        success: addNewRequestToDom,
+        });
+      },
+      addNewRequestToDom: function(){
+
+      },
+      PostNewRequest: function(){
+
+      },
+
 
     // ON DELETE/COMPLETE REQUEST BUTTON CLICK (USER SIDE)
       // delete request from database and DOM

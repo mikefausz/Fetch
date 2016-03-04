@@ -1,3 +1,5 @@
+$blue: rgba(35, 99, 173, 1);
+$tintBlue: rgba(19, 67, 123, .85);
 * {
   // font-family: 'Open Sans', Helvetica, sans-serif;
   font-family: 'Roboto Slab', serif;
@@ -7,6 +9,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: $blue;
+  // background-image: url('./fetch-bg.jpeg');
+// background-attachment: fixed;
 }
 
 .active{
@@ -17,10 +22,19 @@ section {
   display: none;
   width: 80%;
   margin: auto;
+
 }
 
 .button {
   border: 1px solid black;
+  width: 100px;
+  padding: 4px;
+  margin: auto;
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  box-shadow: .25px .5px .25px .25px black;
+  color: white;
+  background: $blue;
   &:hover {
     cursor: pointer;
   }
@@ -42,7 +56,7 @@ section {
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: rgba(19, 67, 123, .85);
+  background-color: $tintBlue;
 }
 
 #loginBox {
@@ -50,8 +64,8 @@ section {
   height: 300px;
   padding: 6px;
   color: white;
-  background: rgba(35, 99, 173, 1);
-  margin: 18% auto;
+  background: $blue;
+  margin: 15% auto;
   text-align: center;
   border-radius: 7px;
   box-shadow: 0px 3px 16px 2px rgba(0,0,0,0.71);
@@ -60,10 +74,12 @@ section {
     margin-bottom: 0;
     font-size: 72px;
     font-family: 'Lobster', cursive;
+    text-shadow: 2px 2px 2px black;
   }
   p {
     margin-top: 0;
     font-size: 14px;
+    text-shadow: 2px 2px 2px black;
   }
   form {
     margin: 45px auto;
@@ -80,37 +96,41 @@ section {
   label {
     font-size: 14px;
     margin: 4px;
+    text-shadow: 1px 1px 1px black;
+
   }
   select {
     font-size: 16px;
   }
   #letsGo {
+    @extend .button;
     font-size: 20px;
     padding: 8px;
     width: 70px;
-    font-family: 'Lobster', cursive;
-    border: 1px solid;
   }
 }
 
 header{
   width: 100%;
-  background-color: #4E04D8;
-  height:200px;
+  background-color: $blue;
+  text-align: center;
   border-bottom:5px solid #E6E6E6;
 }
 
 h1{
-  font-size: 20px;
-  color: white;
-  text-align: center;
-  font-family:sans-serif;
-  text-shadow: 5px 5px 5px black;
+  font-size: 5rem;
+  margin: 20px 0 0 0;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    text-shadow: 2px 2px 2px black;
 }
 
 .logoutButton {
   @extend .button;
 }
+
 #login{
   width: 50%;
   height: 50px;
@@ -120,32 +140,61 @@ h1{
   padding: 20px;
 }
 
+.headerCol {
+  display: inline-block;
+  vertical-align: top;
+  width: 30%;
+}
+
 #userPage {
-  div {
+  h3 {
+    vertical-align: top;
+    color: white;
+    margin: 0;
+  }
+  h2 {
+    display: inline-block;
+    color: white;
+  }
+  #requestFormBox, .userRequest {
     border: 1px solid black;
     margin: 10px;
+    background: white;
   }
+
+  #requestFormBox {
+    display: inline-block;
+        width: 65%;
+  }
+
   #submitRequest {
     @extend .button;
   }
   .deleteButton {
     @extend .button;
+    display: inline-block;
   }
 }
+
 #driverPage {
-  div {
+  #acceptedBlock {
+
+  }
+  .userRequest, .acceptedRequest {
+    width: 100%;
     border: 1px solid black;
     margin: 10px;
+    background: white;
+  }
+  h2 {
+    color: white;
   }
   .acceptButton {
     @extend .button;
   }
 }
+
 .requestContainer{
-  width: 80%;
-  height: 100px;
-  border: 5px double #E6E6E6;
-  margin: 0 auto;
-  box-shadow: 5px 5px 5px black;
-  margin-bottom: 2%;
+  display: inline-block;
+  width: 65%;
 }
