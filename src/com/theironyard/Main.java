@@ -6,7 +6,6 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Main {
-    static String status = "OPEN";
     public static void createTables(Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
         stmt.execute("CREATE TABLE IF NOT EXISTS users (id IDENTITY, name VARCHAR)");
@@ -24,6 +23,7 @@ public class Main {
         stmt.execute();
     }
     public static void insertRequest(Connection conn, int userId, String request) throws SQLException {
+        String status = "OPEN";
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO requests VALUES (NULL, ?, NULL, ?, ?)");
         stmt.setInt(1, userId);
         stmt.setString(2, request);
