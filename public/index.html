@@ -2,91 +2,93 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="styles.css" href="syles.scss" media="screen" title="no title" charset="utf-8">
-    <title>Fetch</title>
+    <title>Fetch!</title>
   </head>
   <body>
-    <header>
-      <h1>FETCH<h1>
-    </header>
+    <section id="loginPage" class="active">
+      <div id="bg">
+        <div id="tint">
+        <div id="loginBox">
+        <h2>Fetch!</h2>
+        <p>An anything delivery service</p>
+        <form>
+          <input type="text" class="nameInput" placeholder="Username">
+          <label for="userType">I am a: </label>
+          <select name="userType">
+            <option value="user">User</option>
+            <option value="driver">Driver</option>
+          </select>
+          <div class="button" id="letsGo">Let's go!</div>
+          <!-- <button class="loginButton" type="button" name="button">Let's Go!</button> -->
+        </form>
 
-<section id="login" class="active">
-  <form>
-  <input type="text" class="nameInput" placeholder="Name">
-  <select class="userType">
-    <option value="driver">Driver</option>
-    <option value="Customer">Customer</option>
-  </select>
-  <button class="loginButton" type="button" name="button">Let's Go!</button>
-</form>
-</section>
+        </div>
+        </div>
+      </div>
+    </section>
 
+    <section id="userPage">
+      <header>
+        <h1>FETCH<h1>
+          <h2>USER PAGE</h2>
+      </header>
+      <div class="requestContainer">
+        <h2>Fetch List 1<h2>
+        <form class="sendRequest">
+          <input type="text" name="itemslist">
+          <input type="button" name="send">
+        </form>
+      </div>
+      <div class="requestContainer">
+        <h2>Fetch List 1<h2>
+        <form class="sendRequest">
+          <input type="text" name="itemslist">
+          <input type="button" name="send">
+        </form>
+      </div>
+      <div class="requestContainer">
+        <h2>Fetch List 1<h2>
+        <form class="sendRequest">
+          <input type="text" name="itemslist">
+          <input type="button" name="send">
+        </form>
+      </div>
+    </section>
 
-<section id="landingPage" class="remove">
+    <section id="driverPage">
+      <header>
+        <h1>FETCH<h1>
+          <h2>DRIVER PAGE</h2>
+      </header>
+      <div class="requestContainer">
+        <h2>Fetch List 1<h2>
+        <form class="sendRequest">
+          <input type="text" name="itemslist">
+          <input type="button" name="send">
+        </form>
+      </div>
+      <div class="requestContainer">
+        <h2>Fetch List 1<h2>
+        <form class="sendRequest">
+          <input type="text" name="itemslist">
+          <input type="button" name="send">
+        </form>
+      </div>
+      <div class="requestContainer">
+        <h2>Fetch List 1<h2>
+        <form class="sendRequest">
+          <input type="text" name="itemslist">
+          <input type="button" name="send">
+        </form>
+      </div>
+    </section>
 
-<section id="customer">
-
-    <div class="requestContainer">
-      <h2>Fetch List 1<h2>
-      <form class="sendRequest">
-        <input type="text" name="itemslist">
-        <input type="button" name="send">
-      </form>
-    </div>
-
-    <div class="requestContainer">
-      <h2>Fetch List 2<h2>
-      <form class="sendRequest">
-        <input type="text" name="itemslist">
-        <input type="button" name="send">
-      </form>
-    </div>
-
-    <div class="requestContainer">
-      <h2>Fetch List 3<h2>
-      <form class="SendRequest">
-        <input type="text" name="itemslist">
-        <input type="button" name="send">
-      </form>
-    </div>
-</section>
-
-<section id="driver">
-
-<!--
-    <div class="requestContainer">
-      <h2>Fetch List 1<h2>
-      <form class="sendRequest">
-        <input type="text" name="itemslist" value="Request items here:">
-        <input type="button" name="send" value="Send">
-      </form>
-    </div>
-
-    <div class="requestContainer">
-      <h2>Fetch List 2<h2>
-      <form class="sendRequest">
-        <input type="text" name="itemslist" value="Request items here:">
-        <input type="button" name="send" value="Send">
-      </form>
-    </div>
-
-    <div class="requestContainer">
-      <h2>Fetch List 3<h2>
-      <form class="SendRequest">
-        <input type="text" name="itemslist" value="Request items here:">
-        <input type="button" name="send" value="Send">
-      </form>
-    </div> -->
-
-</section>
-
-</section>
-
-  <script src="bower_components/underscore/underscore.js">
-  </script>
-  <script src="bower_components/jquery/dist/jquery.js">
-  </script>
-  <script src="app.js">
-  </script>
+  <script src="bower_components/underscore/underscore.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="app.js"></script>
   </body>
 </html>
