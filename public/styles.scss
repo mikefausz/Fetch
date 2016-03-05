@@ -1,8 +1,9 @@
 $blue: rgba(35, 99, 173, 1);
 $tintBlue: rgba(19, 67, 123, .85);
+
 * {
-  // font-family: 'Open Sans', Helvetica, sans-serif;
   font-family: 'Roboto Slab', serif;
+  // font-family: 'Open Sans', Helvetica, sans-serif;
 }
 
 body {
@@ -10,8 +11,8 @@ body {
   padding: 0;
   font-family: sans-serif;
   background-color: $blue;
-  // background-image: url('./fetch-bg.jpeg');
-  // background-attachment: fixed;
+  background-image: url('./fetch-bg.jpeg');
+  background-attachment: fixed;
 }
 
 .active{
@@ -22,16 +23,35 @@ section {
   display: none;
   width: 80%;
   margin: auto;
+}
 
+// #bg {
+//   position: absolute;
+//   height: 100%;
+//   width: 100%;
+//   // background-image: url("https://images.unsplash.com/photo-1456143077270-30de0a1bf7bc?crop=entropy&dpr=2&fit=crop&fm=jpg&h=725&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1300");
+//   background-image: url('./fetch-bg.jpeg');
+//   background-position-y: 28%;
+//   background-position-x: 55%;
+//   background-size: 160%;
+// }
+
+#tint {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background-color: $tintBlue;
 }
 
 .button {
   border: 1px solid black;
   width: 100px;
   padding: 4px;
-  margin: auto;
   text-align: center;
-  font-family: 'Lobster', cursive;
+  font-family: 'Roboto Slab', serif;
   box-shadow: .25px .5px .25px .25px black;
   color: white;
   background: $blue;
@@ -40,27 +60,9 @@ section {
   }
 }
 
-#bg {
-  position: absolute;
-    height: 100%;
-    width: 100%;
-    // background-image: url("https://images.unsplash.com/photo-1456143077270-30de0a1bf7bc?crop=entropy&dpr=2&fit=crop&fm=jpg&h=725&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1300");
-    background-image: url('./fetch-bg.jpeg');
-    background-position-y: 28%;
-    background-position-x: 55%;
-    background-size: 160%;
-}
-
-#tint {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: $tintBlue;
-}
-
 #loginBox {
   width: 250px;
-  height: 300px;
+  height: 310px;
   padding: 6px;
   color: white;
   background: $blue;
@@ -81,62 +83,70 @@ section {
     text-shadow: 2px 2px 2px black;
   }
   form {
-    margin: 45px auto;
-  }
-  input, #letsGo, button {
-    margin: 12px auto;
-    display: block;
+    margin: 29px auto;
   }
   input {
+    margin: 12px auto;
+  }
+  input[type="text"] {
     padding: 4px;
+    font-size: 14px;
+  }
+  #letsGo {
+    @extend .button;
+    display: block;
+    padding: 8px;
+    width: 70px;
+    font-size: 16px;
+    margin: auto;
+  }
+}
+
+.userOption {
+  display: block;
+  input {
+    padding: 4px;
+    margin: 12px auto;
     font-size: 14px;
     text-align: center;
   }
-  label {
+  label[name="userTypeLabel"] {
     font-size: 14px;
     margin: 4px;
     text-shadow: 1px 1px 1px black;
-
   }
   select {
     font-size: 16px;
   }
-  #letsGo {
-    @extend .button;
-    font-size: 20px;
-    padding: 8px;
-    width: 70px;
+  label[name="newAccLabel"] {
+    font-size: 12px;
+    margin: 4px;
+    text-shadow: 1px 1px 1px black;
+  }
+  input[type="checkbox"] {
+    display: inline-block;
   }
 }
 
-header{
+header {
   width: 100%;
   background-color: $blue;
   text-align: center;
-  border-bottom:5px solid #E6E6E6;
 }
 
-h1{
+h1 {
   font-size: 5rem;
   margin: 20px 0 0 0;
-    display: inline-block;
-    color: white;
-    text-align: center;
-    font-family: 'Lobster', cursive;
-    text-shadow: 2px 2px 2px black;
+  display: inline-block;
+  color: white;
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  text-shadow: 2px 2px 2px black;
 }
 
 .logoutButton {
   @extend .button;
-}
-
-#login{
-  width: 50%;
-  height: 50px;
-  margin: 0 auto;
-  border: 5px solid #4E04D8;
-  box-shadow: 5px 5px 5px black;
-  padding: 20px;
+  margin: auto;
 }
 
 .headerCol {
@@ -150,24 +160,43 @@ h1{
   width: 65%;
 }
 
+.request {
+  box-shadow: 2px 2px 2px black;
+  margin: 10px;
+  background: white;
+  padding: 12px;
+  h4 {
+    margin: 0;
+    font-size: 24px;
+  }
+}
+
 #userPage {
+  background: $blue;
+  border-radius: 7px;
+  padding: 0 30px;
+  margin-top: 10px;
+  box-shadow: 0px 3px 16px 2px rgba(0, 0, 0, 0.71);
   h3 {
-    vertical-align: top;
+    display: inline-block;
+    vertical-align: middle;
     color: white;
     margin: 0;
   }
   h2 {
     display: inline-block;
     color: white;
+    font-family: 'Lobster';
+    font-size: 32px;
+    margin: 0;
+    text-shadow: 2px 2px 2px black;
   }
   #requestFormBox, .userRequest {
-    border: 1px solid black;
-    margin: 10px;
-    background: white;
+    @extend .request;
   }
-  #requestFormBox {
-    display: inline-block;
-        width: 65%;
+  textarea {
+    font-size: 16px;
+    margin-bottom: 11px;
   }
   #submitRequest {
     @extend .button;
@@ -175,24 +204,27 @@ h1{
   .deleteButton {
     @extend .button;
     display: inline-block;
+    margin-right: 8px;
   }
 }
 
 #driverPage {
-<<<<<<< HEAD
-  #acceptedBlock {
-
-  }
-=======
->>>>>>> 7f49f156667af367005c90129c15c9c418840033
-  .userRequest, .acceptedRequest {
+  background: $blue;
+  border-radius: 7px;
+  padding: 0 30px;
+  margin-top: 10px;
+  box-shadow: 0px 3px 16px 2px rgba(0, 0, 0, 0.71);
+  .openRequest, .acceptedRequest {
+    @extend .request;
     width: 100%;
-    border: 1px solid black;
-    margin: 10px;
-    background: white;
   }
   h2 {
+    display: inline-block;
     color: white;
+    font-family: 'Lobster';
+    font-size: 32px;
+    margin: 0;
+    text-shadow: 2px 2px 2px black;
   }
   .acceptButton {
     @extend .button;
