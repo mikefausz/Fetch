@@ -5,8 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Session;
 import spark.Spark;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void createTables(Connection conn) throws SQLException {
@@ -126,8 +130,30 @@ public class Main {
             Spark.halt(401, "Driver Not Logged In");
         }
     }
+    public static void populateDatabaseWithTestUsers(Connection conn,String file) throws FileNotFoundException, SQLException {
+        File f = new File(file);
+        Scanner s = new Scanner(f);
+        while(s.hasNext()){
+            insertUser(conn, s.nextLine());
+        }
+    }
+    public static void populateDatabaseWithTestDrivers(Connection conn, String file) throws FileNotFoundException, SQLException {
+        File f = new File(file);
+        Scanner s = new Scanner(f);
+        while(s.hasNext()){
+            insertDriver(conn, s.nextLine());
+        }
+    }
+    public static void populateDatabaseWithTestRequests(Connection conn, String file) throws FileNotFoundException, SQLException {
+        File f = new File(file);
+        Scanner s = new Scanner(f);
+        while(s.hasNext()){
+            String[] requests = s.nextLine().split(",");
+            insertRequest(conn, Integer.valueOf(requests[0]), requests[1]);
+        }
+    }
     final static Logger logger = LoggerFactory.getLogger(Main.class);
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, FileNotFoundException {
         Connection conn = DriverManager.getConnection("jdbc:h2:mem:fetch");
         createTables(conn);
         Spark.externalStaticFileLocation("public");
@@ -138,6 +164,9 @@ public class Main {
         insertDriver(conn, "Tom");
         insertRequest(conn, 1, "This is a request");
         updateStatus(conn, 1, "Request Received", 1);
+        populateDatabaseWithTestUsers(conn, "users.rtf");
+        populateDatabaseWithTestDrivers(conn, "drivers.rtf");
+        populateDatabaseWithTestRequests(conn, "requests.rtf");
 
         Spark.post(
                 "/login-User",
@@ -162,7 +191,6 @@ public class Main {
         Spark.post(
                 "/login-Driver",
                 ((request, response) -> {
-                    Driver driver = null;
                     String name = request.queryParams("name");
                     if(name.isEmpty()){
                         logger.error("Driver Name Cannot Be Empty");

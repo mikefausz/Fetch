@@ -48,7 +48,6 @@ var fetchApp = {
                    username = $('input[name="userName"]').val();
                    fetchApp.loginUser(username);
                    fetchApp.getUserRequests();
-                   // add only this user's open requests to DOM
        }
        else if ($('select[name=userType]').val() === 'driver' &&
                 $('input[type=checkbox]').is(":checked")) {
@@ -64,16 +63,19 @@ var fetchApp = {
                    // add only this user's open requests to DOM
        }
      });
-    //  $("logoutButton").on('click', function(){
-    //     $('#userPage',"#").removeClass('active');
-    //     $('#loginPage').addClass('active');
-    //  })
+     $(".logoutButton").on('click', function(){
+        $(this).closest('section').removeClass('active');
+        $('#loginPage').addClass('active');
+     });
     // ON NEW REQUEST FORM SUBMISSION (USER SIDE)
       // get value of request text input
       // add new request to database and DOM
 
     // ON DELETE/COMPLETE REQUEST BUTTON CLICK (USER SIDE)
-      // delete request from database and DOM
+    $('#userPage').on('click', '.deleteButton', function(event) {
+      fetchApp.deleteRequest($(this).data('id'));
+
+    });
 
     // ON ACCEPT REQUEST BUTTON CLICK (DRIVER SIDE)
       // change request status to accepted
@@ -202,7 +204,8 @@ var fetchApp = {
       method: "POST",
       data:{requestId:requestId},
       success: function(){
-        console.log('request deleted')
+        console.log('request deleted');
+        fetchApp.getUserRequests();
       },
       error: function (err) {
         console.log("error: ", err);
