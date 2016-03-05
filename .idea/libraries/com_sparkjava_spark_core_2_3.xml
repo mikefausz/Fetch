@@ -21,6 +21,8 @@
       <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/websocket/websocket-servlet/9.3.2.v20150730/websocket-servlet-9.3.2.v20150730.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/spark-core-2.3-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
