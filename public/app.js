@@ -67,14 +67,17 @@ var fetchApp = {
         $(this).closest('section').removeClass('active');
         $('#loginPage').addClass('active');
      });
+     
     // ON NEW REQUEST FORM SUBMISSION (USER SIDE)
-      // get value of request text input
-      // add new request to database and DOM
+    $('#userPage').on('click', '#submitRequest', function(event) {
+      var requestText = $('#newRequestText').val();
+      $('#newRequestText').val("");
+      fetchApp.addRequest(requestText);
+    });
 
     // ON DELETE/COMPLETE REQUEST BUTTON CLICK (USER SIDE)
     $('#userPage').on('click', '.deleteButton', function(event) {
       fetchApp.deleteRequest($(this).data('id'));
-
     });
 
     // ON ACCEPT REQUEST BUTTON CLICK (DRIVER SIDE)
@@ -176,6 +179,7 @@ var fetchApp = {
       data: {requestText:requestText},
       success: function(response) {
         console.log("gave new request to james");
+        fetchApp.getUserRequests();
       },
       error: function (err) {
         console.log("error: ", err);
@@ -222,7 +226,7 @@ var fetchApp = {
   },
 
   addRequestToDom: function(request,template,target){
-    $(target).html(fetchApp.buildRequestHtml(template, request));
+    $(target).prepend(fetchApp.buildRequestHtml(template, request));
   },
 
   buildRequestHtml: function(template,data) {
