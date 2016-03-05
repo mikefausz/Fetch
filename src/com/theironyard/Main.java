@@ -1,5 +1,6 @@
 package com.theironyard;
 import jodd.json.JsonSerializer;
+import org.h2.tools.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Session;
@@ -127,10 +128,12 @@ public class Main {
     }
     final static Logger logger = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) throws SQLException {
-        Connection conn = DriverManager.getConnection("jdbc:h2:mem:");
+        Connection conn = DriverManager.getConnection("jdbc:h2:mem:fetch");
         createTables(conn);
         Spark.externalStaticFileLocation("public");
         Spark.init();
+        Spark.awaitInitialization();
+        Server.createWebServer().start();
         insertUser(conn, "Bob");
         insertDriver(conn, "Tom");
         insertRequest(conn, 1, "This is a request");
