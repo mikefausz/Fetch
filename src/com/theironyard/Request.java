@@ -4,11 +4,11 @@ package com.theironyard;
  * Created by PiratePowWow on 3/3/16.
  */
 public class Request {
-    int id;
-    int userId;
-    int driverId;
-    String request;
-    String status;
+    private int id;
+    private int userId;
+    private int driverId;
+    private String request;
+    private String status;
 
     public Request(int id, int userId, int driverId, String request, String status) {
         this.id = id;

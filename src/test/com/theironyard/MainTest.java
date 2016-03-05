@@ -70,4 +70,32 @@ public class MainTest {
         conn.close();
         assertTrue(requests.get(0).getStatus().equals("Closed"));
     }
+
+    @Test
+    public void testDeleteUser() throws SQLException {
+        Connection conn = startConnection();
+        Main.insertUser(conn, "Bob");
+        Main.deleteUser(conn, new User(1, "Bob"));
+        assertTrue(Main.usersSize(conn)==0);
+        conn.close();
+    }
+
+    @Test
+    public void testDeleteDriver() throws SQLException {
+        Connection conn = startConnection();
+        Main.insertDriver(conn, "Bob");
+        Main.deleteDriver(conn, new Driver(1, "Bob"));
+        assertTrue(Main.driversSize(conn)==0);
+        conn.close();
+    }
+
+    @Test
+    public void testDeleteRequest() throws SQLException {
+        Connection conn = startConnection();
+        User user = new User(1, "Bob");
+        Main.insertRequest(conn, 1, "test");
+        Main.deleteRequest(conn, 1, user);
+        assertTrue(Main.requestsSize(conn)==0);
+        conn.close();
+    }
 }
