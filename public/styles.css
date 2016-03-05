@@ -5,7 +5,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: #2363ad; }
+  background-color: #2363ad;
+  background-image: url("./fetch-bg.jpeg");
+  background-attachment: fixed; }
 
 .active {
   display: block; }
@@ -15,11 +17,19 @@ section {
   width: 80%;
   margin: auto; }
 
+#tint {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background-color: rgba(19, 67, 123, 0.85); }
+
 .button, #loginBox #letsGo, .logoutButton, #userPage #submitRequest, #userPage .deleteButton, #driverPage .acceptButton {
   border: 1px solid black;
   width: 100px;
   padding: 4px;
-  margin: auto;
   text-align: center;
   font-family: 'Roboto Slab', serif;
   box-shadow: .25px .5px .25px .25px black;
@@ -28,24 +38,9 @@ section {
   .button:hover, #loginBox #letsGo:hover, .logoutButton:hover, #userPage #submitRequest:hover, #userPage .deleteButton:hover, #driverPage .acceptButton:hover {
     cursor: pointer; }
 
-#bg {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-image: url("./fetch-bg.jpeg");
-  background-position-y: 28%;
-  background-position-x: 55%;
-  background-size: 160%; }
-
-#tint {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(19, 67, 123, 0.85); }
-
 #loginBox {
   width: 250px;
-  height: 300px;
+  height: 310px;
   padding: 6px;
   color: white;
   background: #2363ad;
@@ -64,30 +59,43 @@ section {
     font-size: 14px;
     text-shadow: 2px 2px 2px black; }
   #loginBox form {
-    margin: 45px auto; }
-  #loginBox input, #loginBox #letsGo, #loginBox button {
-    margin: 12px auto;
-    display: block; }
+    margin: 29px auto; }
   #loginBox input {
+    margin: 12px auto; }
+  #loginBox input[type="text"] {
     padding: 4px;
+    font-size: 14px; }
+  #loginBox #letsGo {
+    display: block;
+    padding: 8px;
+    width: 70px;
+    font-size: 16px;
+    margin: auto; }
+
+.userOption {
+  display: block; }
+  .userOption input {
+    padding: 4px;
+    margin: 12px auto;
     font-size: 14px;
     text-align: center; }
-  #loginBox label {
+  .userOption label[name="userTypeLabel"] {
     font-size: 14px;
     margin: 4px;
     text-shadow: 1px 1px 1px black; }
-  #loginBox select {
+  .userOption select {
     font-size: 16px; }
-  #loginBox #letsGo {
-    padding: 8px;
-    width: 70px;
-    font-size: 16px; }
+  .userOption label[name="newAccLabel"] {
+    font-size: 12px;
+    margin: 4px;
+    text-shadow: 1px 1px 1px black; }
+  .userOption input[type="checkbox"] {
+    display: inline-block; }
 
 header {
   width: 100%;
   background-color: #2363ad;
-  text-align: center;
-  border-bottom: 5px solid #E6E6E6; }
+  text-align: center; }
 
 h1 {
   font-size: 5rem;
@@ -98,13 +106,8 @@ h1 {
   font-family: 'Lobster', cursive;
   text-shadow: 2px 2px 2px black; }
 
-#login {
-  width: 50%;
-  height: 50px;
-  margin: 0 auto;
-  border: 5px solid #4E04D8;
-  box-shadow: 5px 5px 5px black;
-  padding: 20px; }
+.logoutButton {
+  margin: auto; }
 
 .headerCol {
   display: inline-block;
@@ -115,51 +118,52 @@ h1 {
   display: inline-block;
   width: 65%; }
 
-#userPage h3 {
-  display: inline-block;
-  vertical-align: middle;
-  color: white;
-  margin: 0; }
-
-#userPage h2 {
-  display: inline-block;
-  color: white;
-  font-family: 'Lobster';
-  font-size: 32px;
-  margin: 0; }
-
-#userPage h4 {
-  margin: 0;
-  font-size: 24px; }
-
-#userPage #requestFormBox, #userPage .userRequest {
-  border: 1px solid black;
+.request, #userPage #requestFormBox, #userPage .userRequest, #driverPage .openRequest, #driverPage .acceptedRequest {
+  box-shadow: 2px 2px 2px black;
   margin: 10px;
-  background: white; }
-
-#userPage #requestFormBox {
-  display: inline-block;
-  width: 65%;
+  background: white;
   padding: 12px; }
+  .request h4, #userPage #requestFormBox h4, #userPage .userRequest h4, #driverPage .openRequest h4, #driverPage .acceptedRequest h4 {
+    margin: 0;
+    font-size: 24px; }
 
-#userPage textarea {
-  border: none; }
+#userPage {
+  background: #2363ad;
+  border-radius: 7px;
+  padding: 0 30px;
+  margin-top: 10px;
+  box-shadow: 0px 3px 16px 2px rgba(0, 0, 0, 0.71); }
+  #userPage h3 {
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
+    margin: 0; }
+  #userPage h2 {
+    display: inline-block;
+    color: white;
+    font-family: 'Lobster';
+    font-size: 32px;
+    margin: 0;
+    text-shadow: 2px 2px 2px black; }
+  #userPage textarea {
+    font-size: 16px;
+    margin-bottom: 11px; }
+  #userPage .deleteButton {
+    display: inline-block;
+    margin-right: 8px; }
 
-#userPage textarea:focus {
-  border: 1px solid black; }
-
-#userPage .userRequest {
-  padding: 12px; }
-
-#userPage .deleteButton {
-  display: inline-block;
-  margin-right: 8px; }
-
-#driverPage .userRequest, #driverPage .acceptedRequest {
-  width: 100%;
-  border: 1px solid black;
-  margin: 10px;
-  background: white; }
-
-#driverPage h2 {
-  color: white; }
+#driverPage {
+  background: #2363ad;
+  border-radius: 7px;
+  padding: 0 30px;
+  margin-top: 10px;
+  box-shadow: 0px 3px 16px 2px rgba(0, 0, 0, 0.71); }
+  #driverPage .openRequest, #driverPage .acceptedRequest {
+    width: 100%; }
+  #driverPage h2 {
+    display: inline-block;
+    color: white;
+    font-family: 'Lobster';
+    font-size: 32px;
+    margin: 0;
+    text-shadow: 2px 2px 2px black; }

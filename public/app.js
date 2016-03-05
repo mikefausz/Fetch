@@ -28,9 +28,6 @@ templates.openRequest = [
 
 var fetchApp = {
   urls: {
-    // usersUrl: 'http://tiny-tiny.herokuapp.com/collections/users',
-    // driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
-    // requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
     // URL ROUTES JAMES CREATES WILL GO HERE
     user:              '/user',
     loginDriver:       '/login-Driver',
@@ -40,9 +37,6 @@ var fetchApp = {
     request:           '/request',
   },
 
-  // MAYBE SOME EMPTY OBJECTS TO STORE 'GET' DATA LOCALLY
-    // ONE FOR USER DATA
-    // ONE FOR OPEN REQUESTS TO BE FILTERED
 
   init: function(){
     fetchApp.initStyling();
@@ -59,36 +53,40 @@ var fetchApp = {
 
     // ON LOGIN FORM SUBMISSION
     $('#letsGo').on('click', function () {
-      if ($('select[name=userType]').val() === 'newUser') {
-        var username = $('input[name="userName"]').val();
-        fetchApp.addNewUser(username);
-        // add only this user's open requests to DOM
+      var username = "";
+      if ($('select[name=userType]').val() === 'user' &&
+          $('input[type=checkbox]').is(":checked")) {
+                  username = $('input[name="userName"]').val();
+                  fetchApp.addNewUser(username);
+                  // add only this user's open requests to DOM
       }
-      else if ($('select[name=userType]').val() === 'user') {
-        $('#userPage').addClass('active');
-        $('#loginPage').removeClass('active');
-        var username = $('input[name="userName"]').val();
-        fetchApp.loginUser(username);
-        fetchApp.getUserRequests();
-        // add only this user's open requests to DOM
+      else if ($('select[name=userType]').val() === 'user' &&
+              !$('input[type=checkbox]').is(":checked")) {
+                  $('#userPage').addClass('active');
+                  $('#loginPage').removeClass('active');
+                  username = $('input[name="userName"]').val();
+                  fetchApp.loginUser(username);
+                  fetchApp.getUserRequests();
+                  // add only this user's open requests to DOM
       }
-      else if ($('select[name=userType]').val() === 'newDriver') {
-        var username = $('input[name="userName"]').val();
-        fetchApp.addNewDriver(username);
-        // add only this user's open requests to DOM
+      else if ($('select[name=userType]').val() === 'driver' &&
+               $('input[type=checkbox]').is(":checked")) {
+                  username = $('input[name="userName"]').val();
+                  fetchApp.addNewDriver(username);
+                  // add only this user's open requests to DOM
       }
       else {
-        $('#driverPage').addClass('active');
-        $('#loginPage').removeClass('active');
-        var username = $('input[name="userName"]').val();
-        fetchApp.loginDriver(username);
-        // add only this user's open requests to DOM
+                  $('#driverPage').addClass('active');
+                  $('#loginPage').removeClass('active');
+                  username = $('input[name="userName"]').val();
+                  fetchApp.loginDriver(username);
+                  // add only this user's open requests to DOM
       }
     });
 
-    $('.logoutButton').on('click', function () {
-      $('#loginPage').addClass('active');
-      $('#loginPage').siblings().removeClass('active');
+                  $('.logoutButton').on('click', function () {
+                  $('#loginPage').addClass('active');
+                  $('#loginPage').siblings().removeClass('active');
     });
 
     // ON NEW REQUEST FORM SUBMISSION (USER SIDE)
@@ -119,7 +117,7 @@ var fetchApp = {
     $.ajax({
       url: fetchApp.urls.user,
       method: 'POST',
-      data: {user:userName},
+      data: {user: userName},
       success: function(user) {
         console.log("added user " + userName);
       },
@@ -133,7 +131,7 @@ var fetchApp = {
     $.ajax({
       url: fetchApp.urls.loginUser,
       method: 'POST',
-      data: {name:userName},
+      data: {name: userName},
       success: function(response) {
         console.log("logged in" + userName);
       },
