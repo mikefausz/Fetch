@@ -120,7 +120,9 @@ var fetchApp = {
      url: fetchApp.urls.userRequests,
      method:"GET",
      success: function(requests){
-       console.log("gotit"+requests)
+       console.log("gotit"+requests);
+       fetchApp.addRequestsToDom(JSON.parse(requests), templates.user,'#userRequests');
+
      },
    });
   },
@@ -148,21 +150,26 @@ var fetchApp = {
     // will delete a request from the requests JSON object
     // when a user deletes or confirms delivery
   },
+  addRequestToDom: function(request,template,target){
+    $(target).html(fetchApp.buildRequestHtml(template, request));
 
-  addRequestsToDom: function(requests) {
+
+
+  },
+
+  addRequestsToDom: function(requests, template, target) {
     // will add the given requests to the DOM
+    var htmlStr = "";
+  requests.forEach(function(request){
+      htmlStr += fetchApp.buildRequestHtml(template, request);
+    });
+    $(target).html(htmlStr);
+
   },
 
-  buildUserRequestHtml: function(request) {
-    // will use userRequest template and underscore
-  },
-
-  buildAcceptedRequestHtml: function(request) {
-    // will use acceptedRequest template and underscore
-  },
-
-  buildOpenRequestHtml: function(request) {
-    // will use openRequest template and underscore
-  },
-
-};
+buildRequestHtml: function(template,data) {
+   var requestHtml = _.template(template);
+   console.log(requestHtml(data));
+   return requestHtml(data);
+ }
+ };
