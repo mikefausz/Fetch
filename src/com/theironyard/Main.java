@@ -95,6 +95,24 @@ public class Main {
     public static Driver getDriverFromSession(Session session){
         return session.attribute("name");
     }
+    public static int usersSize(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(id) AS size FROM users");
+        ResultSet results = stmt.executeQuery();
+        results.next();
+        return results.getInt("size");
+    }
+    public static int driversSize(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(id) AS size FROM drivers");
+        ResultSet results = stmt.executeQuery();
+        results.next();
+        return results.getInt("size");
+    }
+    public static int requestsSize(Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(id) AS size FROM requests");
+        ResultSet results = stmt.executeQuery();
+        results.next();
+        return results.getInt("size");
+    }
     public static void userLoginCheck(User user){
         if(user==null){
             logger.error("User Not Logged In");
@@ -309,7 +327,6 @@ public class Main {
                         logger.error("Error Deleting Request");
                         Spark.halt(500, "Error Deleting Request: " + e.getMessage());
                     }
-
                     return "";
                 })
         );
