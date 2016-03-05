@@ -173,13 +173,15 @@ public class Main {
         Spark.get(
                 "/driver",
                 ((request, response) -> {
-                    String driver = request.queryParams("driver");
-                    if(driver.isEmpty()){
+                    String driverStr = request.queryParams("driver");
+                    Driver driver = getDriverFromSession(request.session());
+                    driverLoginCheck(driver);
+                    if(driverStr.isEmpty()){
                         logger.error("Driver Field Cannot Be Empty");
                         Spark.halt(400, "Driver Field Cannot Be Empty");
                     }
                     JsonSerializer s = new JsonSerializer();
-                    return s.serialize(selectDriver(conn, driver));
+                    return s.serialize(selectDriver(conn, driverStr));
                 })
         );
         Spark.post(
@@ -202,13 +204,15 @@ public class Main {
         Spark.get(
                 "/user",
                 ((request, response) -> {
-                    String user = request.queryParams("user");
-                    if(user.isEmpty()){
+                    String userStr = request.queryParams("user");
+                    User user = getUserFromSession(request.session());
+                    userLoginCheck(user);
+                    if(userStr.isEmpty()){
                         logger.error("User Field Cannot Be Empty");
                         Spark.halt(400, "User Field Cannot Be Empty");
                     }
                     JsonSerializer s = new JsonSerializer();
-                    return s.serialize(selectUser(conn, user));
+                    return s.serialize(selectUser(conn, userStr));
                 })
         );
         Spark.post(
@@ -261,7 +265,7 @@ public class Main {
                     return s.serialize(selectDriverRequests(conn, driver.getId()));
                 })
         );
-        Spark.post(
+               Spark.post(
                 "/update-request",
                 ((request, response) -> {
                     Driver driver = getDriverFromSession(request.session());
