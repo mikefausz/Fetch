@@ -57,7 +57,7 @@ public class Main {
         ResultSet results = stmt.executeQuery();
         ArrayList<Request> userRequests = new ArrayList<>();
         while(results.next()){
-            userRequests.add(new Request(results.getInt("request.id"), results.getString("requests.request"), results.getString("requests.status"), results.getString("drivers.name")));
+            userRequests.add(new Request(results.getInt("requests.id"), results.getString("requests.request"), results.getString("requests.status"), results.getString("drivers.name")));
         }
         return userRequests;
     }
@@ -226,15 +226,6 @@ public class Main {
                 })
         );
         Spark.get(
-                "/open-requests",
-                ((request, response) -> {
-                    Driver driver = getDriverFromSession(request.session());
-                    driverLoginCheck(driver);
-                    JsonSerializer s = new JsonSerializer();
-                    return s.serialize(selectOpenRequests(conn, "OPEN"));
-                })
-        );
-        Spark.get(
                 "/driver",
                 ((request, response) -> {
                     String driverStr = request.queryParams("driver");
@@ -329,27 +320,36 @@ public class Main {
                     return s.serialize(selectDriverRequests(conn, driver.getId()));
                 })
         );
-               Spark.post(
-                "/update-request",
+        Spark.get(
+                "/open-requests",
                 ((request, response) -> {
                     Driver driver = getDriverFromSession(request.session());
                     driverLoginCheck(driver);
-                    String status = request.queryParams("status");
-                    String requestIdStr = request.queryParams("id");
-                    if(!requestIdStr.isEmpty()) {
-                        try {
-                            int requestId = Integer.valueOf(requestIdStr);
-                            updateStatus(conn, requestId, status, driver.getId());
-                        }catch(SQLException e){
-                            logger.error("Error Updating Request Status");
-                            Spark.halt(500, "Error Updating Request Status: " + e.getMessage());
-                        }catch (NumberFormatException n){
-                            logger.error("Error Converting String To ID");
-                            Spark.halt(400, "Error Converting String To ID: " + n.getMessage());
-                        }
-                    }
-                    return "";
+                    JsonSerializer s = new JsonSerializer();
+                    return s.serialize(selectOpenRequests(conn, "OPEN"));
                 })
+        );
+        Spark.post(
+        "/update-request",
+        ((request, response) -> {
+            Driver driver = getDriverFromSession(request.session());
+            driverLoginCheck(driver);
+            String status = request.queryParams("status");
+            String requestIdStr = request.queryParams("id");
+            if(!requestIdStr.isEmpty()) {
+                try {
+                    int requestId = Integer.valueOf(requestIdStr);
+                    updateStatus(conn, requestId, status, driver.getId());
+                }catch(SQLException e){
+                    logger.error("Error Updating Request Status");
+                    Spark.halt(500, "Error Updating Request Status: " + e.getMessage());
+                }catch (NumberFormatException n){
+                    logger.error("Error Converting String To ID");
+                    Spark.halt(400, "Error Converting String To ID: " + n.getMessage());
+                }
+            }
+            return "";
+        })
         );
         Spark.post(
                 "/delete-user",
