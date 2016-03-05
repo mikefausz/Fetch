@@ -4,8 +4,8 @@ package com.theironyard;
  * Created by PiratePowWow on 3/3/16.
  */
 public class User {
-    int id;
-    String name;
+    private int id;
+    private String name;
 
     public User(int id, String name) {
         this.id = id;
