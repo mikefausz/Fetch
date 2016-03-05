@@ -9,8 +9,8 @@ var fetchApp = {
 
     user:          '/user',
     driver:        '/driver',
-    driverRequest:  '/driver-requests',
-    openRequest:  '/open-requests',
+    driverRequests:  '/driver-requests',
+    openRequests:  '/open-requests',
     loginDriver:   '/login-Driver',
     loginUser:     '/login-User',
     userRequests:  '/user-requests',
@@ -103,7 +103,7 @@ var fetchApp = {
       },
       error: function(err) {
         console.log("ERROR", err);
-        alert("Welcome to Fetch!\n\nPlease create a new Driver Account.")
+        alert("Welcome to Fetch!\n\nPlease create a new Driver Account.");
       },
     });
   },
@@ -125,7 +125,7 @@ var fetchApp = {
 
   getDriverRequests: function() {
       $.ajax({
-        url:fetchApp.urls.driverRequest,
+        url:fetchApp.urls.driverRequests,
         method:'GET',
         success: function(requests) {
          console.log("driver got request"+requests);
@@ -139,7 +139,7 @@ var fetchApp = {
 
   getOpenRequests: function() {
       $.ajax({
-        url:fetchApp.urls.openRequest,
+        url:fetchApp.urls.openRequests,
         method:'GET',
         success: function(requests) {
          console.log("driver got request"+requests);
@@ -178,7 +178,7 @@ var fetchApp = {
       },
       error: function (err) {
       console.log("error: ", err);
-      alert("Welcome to Fetch!\n\nPlease create a new User Account.")
+      alert("Welcome to Fetch!\n\nPlease create a new User Account.");
     },
     });
   },
