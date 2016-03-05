@@ -52,24 +52,34 @@ public class Main {
         return new Driver(results.getInt("id"), results.getString("name"));
     }
     public static ArrayList<Request> selectUserRequests(Connection conn, int userId) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM requests WHERE user_id = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT requests.id, requests.request, requests.status, drivers.name FROM requests INNER JOIN drivers ON requests.driver_id=drivers.id INNER JOIN users ON requests.user_id=users.id WHERE users.id = ?");
         stmt.setInt(1, userId);
         ResultSet results = stmt.executeQuery();
         ArrayList<Request> userRequests = new ArrayList<>();
         while(results.next()){
-            userRequests.add(new Request(results.getInt("id"), results.getInt("user_id"), results.getInt("driver_id"), results.getString("request"), results.getString("status")));
+            userRequests.add(new Request(results.getInt("request.id"), results.getString("requests.request"), results.getString("requests.status"), results.getString("drivers.name")));
         }
         return userRequests;
     }
     public static ArrayList<Request> selectDriverRequests(Connection conn, int driverId) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM requests WHERE driver_id = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT requests.id, requests.request, requests.status, users.name FROM requests INNER JOIN drivers ON requests.driver_id=drivers.id INNER JOIN users ON requests.user_id=users.id WHERE drivers.id = ?");
         stmt.setInt(1, driverId);
         ResultSet results = stmt.executeQuery();
         ArrayList<Request> driverRequests = new ArrayList<>();
         while(results.next()){
-            driverRequests.add(new Request(results.getInt("id"), results.getInt("user_id"), results.getInt("driver_id"), results.getString("request"), results.getString("status")));
+            driverRequests.add(new Request(results.getString("users.name"), results.getInt("requests.id"), results.getString("requests.request"), results.getString("requests.status")));
         }
         return driverRequests;
+    }
+    public static ArrayList<Request> selectOpenRequests(Connection conn, String open) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT requests.id, requests.request, requests.status, users.name FROM requests INNER JOIN drivers ON requests.driver_id=drivers.id INNER JOIN users ON requests.user_id=users.id WHERE requests.status = ?");
+        stmt.setString(1, open);
+        ResultSet results = stmt.executeQuery();
+        ArrayList<Request> openRequests = new ArrayList<>();
+        while(results.next()){
+            openRequests.add(new Request(results.getString("users.name"), results.getInt("requests.id"), results.getString("requests.request"), results.getString("requests.status")));
+        }
+        return openRequests;
     }
     public static void updateStatus(Connection conn, int id, String status, int driverId) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("UPDATE requests SET status = ?, driver_id = ? WHERE id = ?");
@@ -213,6 +223,15 @@ public class Main {
                     Session session = request.session();
                     session.invalidate();
                     return "";
+                })
+        );
+        Spark.get(
+                "/open-requests",
+                ((request, response) -> {
+                    Driver driver = getDriverFromSession(request.session());
+                    driverLoginCheck(driver);
+                    JsonSerializer s = new JsonSerializer();
+                    return s.serialize(selectOpenRequests(conn, "OPEN"));
                 })
         );
         Spark.get(
