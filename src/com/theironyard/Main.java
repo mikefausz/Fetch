@@ -139,27 +139,41 @@ public class Main {
         Spark.post(
                 "/login-User",
                 ((request, response) -> {
+                    User user = null;
                     String name = request.queryParams("name");
                     if(name.isEmpty()){
                         logger.error("User Name Cannot Be Empty");
                         Spark.halt(400, "User Name Cannot Be Empty");
                     }
+                    try{
+                        user = selectUser(conn, name);
+                    }catch (SQLException e){
+                        logger.error("Error Retrieving User From Database");
+                        Spark.halt(404, "Error Retrieving User From Database: " + e.getMessage());
+                    }
                     Session session = request.session();
-                    session.attribute("name", selectUser(conn, name));
-                    return "";
+                    session.attribute("name", user);
+                    return user;
                 })
         );
         Spark.post(
                 "/login-Driver",
                 ((request, response) -> {
+                    Driver driver = null;
                     String name = request.queryParams("name");
                     if(name.isEmpty()){
                         logger.error("Driver Name Cannot Be Empty");
                         Spark.halt(400, "Driver Name Cannot Be Empty");
                     }
+                    try{
+                        selectDriver(conn, name);
+                    }catch (SQLException e){
+                        logger.error("Error Retrieving Driver From Database");
+                        Spark.halt(404, "Error Retrieving Driver From Database: " + e.getMessage());
+                    }
                     Session session = request.session();
                     session.attribute("name", selectDriver(conn, name));
-                    return "";
+                    return selectDriver(conn, name);
                 })
         );
         Spark.post(
