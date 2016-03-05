@@ -201,7 +201,7 @@ h1 {
   #submitRequest {
     @extend .button;
   }
-  .deleteButton {
+  .deleteButton, .completeButton {
     @extend .button;
     display: inline-block;
     margin-right: 8px;

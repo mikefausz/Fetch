@@ -26,7 +26,7 @@ section {
   z-index: -1;
   background-color: rgba(19, 67, 123, 0.85); }
 
-.button, #loginBox #letsGo, .logoutButton, #userPage #submitRequest, #userPage .deleteButton, #driverPage .acceptButton {
+.button, #loginBox #letsGo, .logoutButton, #userPage #submitRequest, #userPage .deleteButton, #userPage .completeButton, #driverPage .acceptButton {
   border: 1px solid black;
   width: 100px;
   padding: 4px;
@@ -35,7 +35,7 @@ section {
   box-shadow: .25px .5px .25px .25px black;
   color: white;
   background: #2363ad; }
-  .button:hover, #loginBox #letsGo:hover, .logoutButton:hover, #userPage #submitRequest:hover, #userPage .deleteButton:hover, #driverPage .acceptButton:hover {
+  .button:hover, #loginBox #letsGo:hover, .logoutButton:hover, #userPage #submitRequest:hover, #userPage .deleteButton:hover, #userPage .completeButton:hover, #driverPage .acceptButton:hover {
     cursor: pointer; }
 
 #loginBox {
@@ -148,7 +148,7 @@ h1 {
   #userPage textarea {
     font-size: 16px;
     margin-bottom: 11px; }
-  #userPage .deleteButton {
+  #userPage .deleteButton, #userPage .completeButton {
     display: inline-block;
     margin-right: 8px; }
 

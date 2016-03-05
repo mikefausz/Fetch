@@ -5,7 +5,7 @@ templates.user = [
     '<h4> <%= request %></h4>',
     '<p>Status: <%= status %></p>',
     '<p>Driver: <%= driverId %></p>',
-    '<div class="deleteButton">Completed</div>',
+    '<div class="completeButton" data-id= <%= id %>>Complete</div>',
     '<div class="deleteButton" data-id= <%= id %>>Cancel</div>',
   '</div>'
 ].join("");
