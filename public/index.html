@@ -9,21 +9,26 @@
     <title>Fetch!</title>
   </head>
   <body>
+    <div id="tint">
     <section id="loginPage" class="active">
-      <div id="bg">
-        <div id="tint">
+      <!-- <div id="bg"> -->
+
           <div id="loginBox">
             <h2>Fetch!</h2>
             <p>An anything delivery service</p>
             <form>
               <input type="text" name="userName" placeholder="Username">
-              <label name="userType">I am a: </label>
-              <select name="userType">
-                <option value="newUser">New User</option>
-                <option value="user">Returning User</option>
-                <option value="newDriver">New Driver</option>
-                <option value="driver">Returning Driver</option>
-              </select>
+              <div class="userOption">
+                <label name="userTypeLabel">I am a: </label>
+                <select name="userType">
+                  <option value="user">User</option>
+                  <option value="driver">Driver</option>
+                </select>
+              </div>
+              <div class="userOption">
+                <label name="newAccLabel">This is a new account</label>
+                <input type="checkbox" name="newAccount" value="">
+              </div>
               <div class="button" id="letsGo">Let's go!</div>
                <!--<button class="loginButton" type="button" name="button">Let's Go!</button>-->
             </form>
@@ -32,7 +37,7 @@
       </div>
     </section>
 
-    <section id="userPage">
+    <section id="userPage" class="blueBg">
       <header>
         <h1>Fetch!</h1>
           <h3>USER PAGE</h3>
@@ -46,21 +51,22 @@
             <h2>New Request</h2>
           </div>
 
+          <div class="requestContainer">
           <div id="requestFormBox">
             <form >
-              <label for="">Request</label>
               <textarea placeholder="What do you need fetched?" rows="4" cols="50"></textarea>
-              <div id="submitRequest">Submit request</div>
+              <div id="submitRequest">Submit</div>
               <!-- <input type="button" name="send"> -->
             </form>
           </div>
+        </div>
 
         </div>
         <div class="headerCol">
         <h2>Your Open Requests</h2>
         </div>
 
-        <div class="requestContainer">
+        <div class="requestContainer" id="userRequests">
           <div class="userRequest">
             <h4>Get me 2 beef Doritos Locos tacos</h4>
             <p>Status: Accepted/Open</p>
@@ -97,11 +103,11 @@
       </div>
     </section>
 
-    <section id="driverPage">
+    <section id="driverPage" class="blueBg">
 
       <header>
         <h1>Fetch!<h1>
-          <h2>DRIVER PAGE</h2>
+          <h3>DRIVER PAGE</h3>
           <div class="logoutButton">
             Logout
           </div>
@@ -115,14 +121,14 @@
 
         <div class="requestContainer">
           <div class="acceptedRequest">
-            <h3>Pick me up some ramen</h3>
+            <h4>Pick me up some ramen</h4>
             <p>User name</p>
             <!-- <div class="deleteButton">
               Cancel Request
             </div> -->
           </div>
           <div class="acceptedRequest">
-            <h3>Pick me up some ramen</h3>
+            <h4>Pick me up some ramen</h4>
             <p>User name</p>
             <!-- <div class="deleteButton">
               Cancel Request
@@ -137,35 +143,35 @@
 
       <div class="requestContainer">
         <div class="openRequest">
-          <h3>Pick me up some ramen</h3>
+          <h4>Pick me up some ramen</h4>
           <p>User name</p>
           <div class="acceptButton">
-            Accept request
+            Accept
           </div>
         </div>
         <div class="openRequest">
-          <h3>Get me some weed</h3>
+          <h4>Get me some weed</h4>
           <p>User name</p>
           <div class="acceptButton">
-            Accept request
+            Accept
           </div>
         </div>
         <div class="openRequest">
-          <h3>I need Cheez Doodles</h3>
+          <h4>I need Cheez Doodles</h4>
           <p>User name</p>
           <div class="acceptButton">
-            Accept request
+            Accept
           </div>
         </div>
         <div class="openRequest">
-          <h3>Flour, milk, eggs</h3>
+          <h4>Flour, milk, eggs</h4>
           <p>User name</p>
           <div class="acceptButton">
-            Accept request
+            Accept
           </div>
         </div>
-      </div>
     </section>
+  </div>
 
   <script src="bower_components/underscore/underscore.js"></script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -173,4 +179,3 @@
   <script src="app.js"></script>
   </body>
 </html>
-

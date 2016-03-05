@@ -3,45 +3,17 @@ $(document).ready(function() {
   fetchApp.init();
 });
 
-templates = [];
-
-templates.userRequest = [
-  // this will be the HTML for the request listings
-  // that the USER sees
-  // will have a DRIVER name if accepted
-].join("");
-
-templates.acceptedRequest = [
-  // very similar to above except
-  // this will be the HTML for the request listings
-  // that the DRIVER has accepted but not completed
-  // will have USER name on it
-].join("");
-
-templates.openRequest = [
-  // very similar to above except
-  // this will be the HTML for the  open request listings
-  // that the DRIVER sees
-  // will have USER name on it
-].join("");
-
-
 var fetchApp = {
   urls: {
-    // usersUrl: 'http://tiny-tiny.herokuapp.com/collections/users',
-    // driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
-    // requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
     // URL ROUTES JAMES CREATES WILL GO HERE
-    user:          '/user',
-    loginDriver:   '/login-Driver',
-    loginUser:     '/login-User',
-    userRequests:  '/user-requests',
-    request:       '/request',
+    user:              '/user',
+    loginDriver:       '/login-Driver',
+    loginUser:         '/login-User',
+    driver:            '/driver',
+    userRequests:      '/user-requests',
+    request:           '/request',
   },
 
-  // MAYBE SOME EMPTY OBJECTS TO STORE 'GET' DATA LOCALLY
-    // ONE FOR USER DATA
-    // ONE FOR OPEN REQUESTS TO BE FILTERED
 
   init: function(){
     fetchApp.initStyling();
@@ -58,36 +30,40 @@ var fetchApp = {
 
     // ON LOGIN FORM SUBMISSION
     $('#letsGo').on('click', function () {
-      if ($('select[name=userType]').val() === 'newUser') {
-        var username = $('input[name="userName"]').val();
-        fetchApp.addNewUser(username);
-        // add only this user's open requests to DOM
+      var username = "";
+      if ($('select[name=userType]').val() === 'user' &&
+          $('input[type=checkbox]').is(":checked")) {
+                  username = $('input[name="userName"]').val();
+                  fetchApp.addNewUser(username);
+                  // add only this user's open requests to DOM
       }
-      else if ($('select[name=userType]').val() === 'user') {
-        $('#userPage').addClass('active');
-        $('#loginPage').removeClass('active');
-        var username = $('input[name="userName"]').val();
-        fetchApp.loginUser(username);
-        fetchApp.getUserRequests();
-        // add only this user's open requests to DOM
+      else if ($('select[name=userType]').val() === 'user' &&
+              !$('input[type=checkbox]').is(":checked")) {
+                  $('#userPage').addClass('active');
+                  $('#loginPage').removeClass('active');
+                  username = $('input[name="userName"]').val();
+                  fetchApp.loginUser(username);
+                  fetchApp.getUserRequests();
+                  // add only this user's open requests to DOM
       }
-      else if ($('select[name=userType]').val() === 'newDriver') {
-        var username = $('input[name="userName"]').val();
-        fetchApp.addNewDriver(username);
-        // add only this user's open requests to DOM
+      else if ($('select[name=userType]').val() === 'driver' &&
+               $('input[type=checkbox]').is(":checked")) {
+                  username = $('input[name="userName"]').val();
+                  fetchApp.addNewDriver(username);
+                  // add only this user's open requests to DOM
       }
       else {
-        $('#driverPage').addClass('active');
-        $('#loginPage').removeClass('active');
-        var username = $('input[name="userName"]').val();
-        fetchApp.loginDriver(username);
-        // add only this user's open requests to DOM
+                  $('#driverPage').addClass('active');
+                  $('#loginPage').removeClass('active');
+                  username = $('input[name="userName"]').val();
+                  fetchApp.loginDriver(username);
+                  // add only this user's open requests to DOM
       }
     });
 
-    $('.logoutButton').on('click', function () {
-      $('#loginPage').addClass('active');
-      $('#loginPage').siblings().removeClass('active');
+                  $('.logoutButton').on('click', function () {
+                  $('#loginPage').addClass('active');
+                  $('#loginPage').siblings().removeClass('active');
     });
 
     // ON NEW REQUEST FORM SUBMISSION (USER SIDE)
@@ -102,7 +78,6 @@ var fetchApp = {
   },
 
   // ALL THE OTHER FUNCTIONS WE WRITE WILL GO HERE
-
 
   addNewDriver: function(driverName) {
       // ajax POST call to driversUrl
@@ -119,9 +94,9 @@ var fetchApp = {
     $.ajax({
       url: fetchApp.urls.user,
       method: 'POST',
-      data: {user:userName},
+      data: {user: userName},
       success: function(user) {
-        console.log("gave username to james");
+        console.log("added user " + userName);
       },
       error: function(err) {
         console.log("ERROR", err);
@@ -131,27 +106,23 @@ var fetchApp = {
 
   loginUser: function(userName) {
     $.ajax({
-      url: fetchApp.urls.user,
+      url: fetchApp.urls.loginUser,
       method: 'POST',
-      data: {name:userName},
+      data: {name: userName},
       success: function(response) {
-        console.log("added" + userName);
+        console.log("logged in" + userName);
       },
     });
   },
-
-  //getUserRequests: function(userId) {
-      // will filter requests matching the userId
-      // these will be requests the user has posted,
-      // but have not yet had delivered
-  //},
 
   getUserRequests: function() {
    $.ajax({
      url: fetchApp.urls.userRequests,
      method:"GET",
      success: function(requests){
-       console.log("gotit"+requests)
+       console.log("gotit"+requests);
+       fetchApp.addRequestsToDom(JSON.parse(requests), templates.user,'#userRequests');
+
      },
    });
   },
@@ -179,21 +150,26 @@ var fetchApp = {
     // will delete a request from the requests JSON object
     // when a user deletes or confirms delivery
   },
+  addRequestToDom: function(request,template,target){
+    $(target).html(fetchApp.buildRequestHtml(template, request));
 
-  addRequestsToDom: function(requests) {
+
+
+  },
+
+  addRequestsToDom: function(requests, template, target) {
     // will add the given requests to the DOM
+    var htmlStr = "";
+  requests.forEach(function(request){
+      htmlStr += fetchApp.buildRequestHtml(template, request);
+    });
+    $(target).html(htmlStr);
+
   },
 
-  buildUserRequestHtml: function(request) {
-    // will use userRequest template and underscore
-  },
-
-  buildAcceptedRequestHtml: function(request) {
-    // will use acceptedRequest template and underscore
-  },
-
-  buildOpenRequestHtml: function(request) {
-    // will use openRequest template and underscore
-  },
-
-};
+buildRequestHtml: function(template,data) {
+   var requestHtml = _.template(template);
+   console.log(requestHtml(data));
+   return requestHtml(data);
+ }
+ };
