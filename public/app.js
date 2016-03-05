@@ -121,7 +121,7 @@ var fetchApp = {
       method: 'POST',
       data: userName,
       success: function(user) {
-        console.log("gave username to james");
+        console.log("added user " + userName);
       },
       error: function(err) {
         console.log("ERROR", err);
@@ -131,19 +131,23 @@ var fetchApp = {
 
   loginUser: function(userName) {
     $.ajax({
-      url: fetchApp.urls.user,
+      url: fetchApp.urls.loginUser,
       method: 'POST',
       data: userName,
       success: function(response) {
-        console.log("added" + userName);
+        console.log("logged in" + userName);
       },
     });
   },
 
   getUserRequests: function(userId) {
-      // will filter requests matching the userId
-      // these will be requests the user has posted,
-      // but have not yet had delivered
+      $.ajax({
+        url: fetchApp.urls.userRequests,
+        method: 'GET',
+        success: function(requests) {
+          console.log("got requests" + requests);
+        },
+      });
   },
 
   getUserRequests: function() {

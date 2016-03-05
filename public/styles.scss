@@ -31,7 +31,7 @@ section {
   padding: 4px;
   margin: auto;
   text-align: center;
-  font-family: 'Lobster', cursive;
+  font-family: 'Roboto Slab', serif;
   box-shadow: .25px .5px .25px .25px black;
   color: white;
   background: $blue;
@@ -103,9 +103,9 @@ section {
   }
   #letsGo {
     @extend .button;
-    font-size: 20px;
     padding: 8px;
     width: 70px;
+    font-size: 16px;
   }
 }
 
@@ -152,13 +152,21 @@ h1{
 
 #userPage {
   h3 {
-    vertical-align: top;
+    display: inline-block;
+vertical-align: middle;
     color: white;
     margin: 0;
   }
   h2 {
     display: inline-block;
     color: white;
+    font-family: 'Lobster';
+    font-size: 32px;
+    margin: 0;
+  }
+  h4 {
+    margin: 0;
+font-size: 24px;
   }
   #requestFormBox, .userRequest {
     border: 1px solid black;
@@ -168,6 +176,17 @@ h1{
   #requestFormBox {
     display: inline-block;
         width: 65%;
+            padding: 12px;
+
+  }
+  textarea {
+    border: none;
+  }
+  textarea:focus {
+    border: 1px solid black;
+  }
+  .userRequest {
+    padding: 12px;
   }
   #submitRequest {
     @extend .button;
@@ -175,16 +194,11 @@ h1{
   .deleteButton {
     @extend .button;
     display: inline-block;
+    margin-right: 8px;
   }
 }
 
 #driverPage {
-<<<<<<< HEAD
-  #acceptedBlock {
-
-  }
-=======
->>>>>>> 7f49f156667af367005c90129c15c9c418840033
   .userRequest, .acceptedRequest {
     width: 100%;
     border: 1px solid black;
