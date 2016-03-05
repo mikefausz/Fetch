@@ -23,4 +23,5 @@ templates.user = [
      '<p> <%= userId %></p>',
      '<div class="acceptButton">Accept</div>',
    '</div>',
-].join(" ");
+  ].join("");
+
