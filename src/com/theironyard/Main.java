@@ -269,12 +269,15 @@ public class Main {
                     String status = request.queryParams("status");
                     String requestIdStr = request.queryParams("id");
                     if(!requestIdStr.isEmpty()) {
-                        int requestId = Integer.valueOf(requestIdStr);
                         try {
+                            int requestId = Integer.valueOf(requestIdStr);
                             updateStatus(conn, requestId, status, driver.getId());
                         }catch(SQLException e){
                             logger.error("Error Updating Request Status");
                             Spark.halt(500, "Error Updating Request Status: " + e.getMessage());
+                        }catch (NumberFormatException n){
+                            logger.error("Error Converting String To ID");
+                            Spark.halt(400, "Error Converting String To ID: " + n.getMessage());
                         }
                     }
                     return "";
@@ -318,14 +321,16 @@ public class Main {
                     if(requestIdStr.isEmpty()){
                         logger.error("Error Deleting Request: Request ID Cannot Be Empty");
                         Spark.halt(400, "Error Deleting Request: Request ID Cannot Be Empty");
-                    }else{
-                        requestId = Integer.valueOf(requestIdStr);
                     }
                     try{
+                        requestId = Integer.valueOf(requestIdStr);
                         deleteRequest(conn, requestId, user);
                     }catch (SQLException e){
                         logger.error("Error Deleting Request");
                         Spark.halt(500, "Error Deleting Request: " + e.getMessage());
+                    }catch (NumberFormatException n){
+                        logger.error("Error Converting String To ID");
+                        Spark.halt(400, "Error Converting String To ID: " + n.getMessage());
                     }
                     return "";
                 })
