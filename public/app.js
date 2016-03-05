@@ -119,7 +119,7 @@ var fetchApp = {
     $.ajax({
       url: fetchApp.urls.user,
       method: 'POST',
-      data: userName,
+      data: {user:userName},
       success: function(user) {
         console.log("gave username to james");
       },
