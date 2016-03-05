@@ -3,29 +3,6 @@ $(document).ready(function() {
   fetchApp.init();
 });
 
-templates = [];
-
-templates.userRequest = [
-  // this will be the HTML for the request listings
-  // that the USER sees
-  // will have a DRIVER name if accepted
-].join("");
-
-templates.acceptedRequest = [
-  // very similar to above except
-  // this will be the HTML for the request listings
-  // that the DRIVER has accepted but not completed
-  // will have USER name on it
-].join("");
-
-templates.openRequest = [
-  // very similar to above except
-  // this will be the HTML for the  open request listings
-  // that the DRIVER sees
-  // will have USER name on it
-].join("");
-
-
 var fetchApp = {
   urls: {
     // URL ROUTES JAMES CREATES WILL GO HERE
