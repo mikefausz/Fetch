@@ -119,7 +119,7 @@ var fetchApp = {
     $.ajax({
       url: fetchApp.urls.user,
       method: 'POST',
-      data: userName,
+      data: {user:userName},
       success: function(user) {
         console.log("added user " + userName);
       },
@@ -133,21 +133,11 @@ var fetchApp = {
     $.ajax({
       url: fetchApp.urls.loginUser,
       method: 'POST',
-      data: userName,
+      data: {name:userName},
       success: function(response) {
         console.log("logged in" + userName);
       },
     });
-  },
-
-  getUserRequests: function(userId) {
-      $.ajax({
-        url: fetchApp.urls.userRequests,
-        method: 'GET',
-        success: function(requests) {
-          console.log("got requests" + requests);
-        },
-      });
   },
 
   getUserRequests: function() {
