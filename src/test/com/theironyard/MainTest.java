@@ -2,6 +2,7 @@ package com.theironyard;
 
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -97,5 +98,16 @@ public class MainTest {
         Main.deleteRequest(conn, 1, user);
         assertTrue(Main.requestsSize(conn)==0);
         conn.close();
+    }
+
+    @Test
+    public void testSelectOpenRequests() throws SQLException, FileNotFoundException {
+        Connection conn = startConnection();
+        Main.populateDatabaseWithTestUsers(conn, "users.rtf");
+        Main.populateDatabaseWithTestDrivers(conn, "drivers.rtf");
+        Main.populateDatabaseWithTestRequests(conn, "requests.rtf");
+        ArrayList<Request> openRequests = Main.selectOpenRequests(conn, "OPEN");
+        conn.close();
+        assertTrue(openRequests.size()==19);
     }
 }
