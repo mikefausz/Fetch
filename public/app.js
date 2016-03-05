@@ -10,6 +10,7 @@ var fetchApp = {
     user:          '/user',
     driver:        '/driver',
     driverRequest:  '/driver-requests',
+    openRequest:  '/open-requests',
     loginDriver:   '/login-Driver',
     loginUser:     '/login-User',
     userRequests:  '/user-requests',
@@ -97,6 +98,8 @@ var fetchApp = {
         console.log("logged in driver" + driverId);
         $('#driverPage').addClass('active');
         $('#loginPage').removeClass('active');
+        fetchApp.getDriverRequests();
+        fetchApp.getOpenRequests();
       },
       error: function(err) {
         console.log("ERROR", err);
@@ -120,13 +123,27 @@ var fetchApp = {
     });
   },
 
-  getDriverRequests: function(driverId) {
+  getDriverRequests: function() {
       $.ajax({
         url:fetchApp.urls.driverRequest,
         method:'GET',
-        data:{driver:driverId},
         success: function(requests) {
          console.log("driver got request"+requests);
+         fetchApp.addRequestsToDom(JSON.parse(requests), templates.accepted,'#acceptedRequests');
+       },
+       error:function(err){
+         console.log("ERROR",err);
+       },
+     });
+  },
+
+  getOpenRequests: function() {
+      $.ajax({
+        url:fetchApp.urls.openRequest,
+        method:'GET',
+        success: function(requests) {
+         console.log("driver got request"+requests);
+         fetchApp.addRequestsToDom(JSON.parse(requests), templates.open,'#openRequests');
        },
        error:function(err){
          console.log("ERROR",err);
