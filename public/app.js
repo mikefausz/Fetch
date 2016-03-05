@@ -3,35 +3,10 @@ $(document).ready(function() {
   fetchApp.init();
 });
 
-templates = [];
-
-templates.userRequest = [
-  // this will be the HTML for the request listings
-  // that the USER sees
-  // will have a DRIVER name if accepted
-].join("");
-
-templates.acceptedRequest = [
-  // very similar to above except
-  // this will be the HTML for the request listings
-  // that the DRIVER has accepted but not completed
-  // will have USER name on it
-].join("");
-
-templates.openRequest = [
-  // very similar to above except
-  // this will be the HTML for the  open request listings
-  // that the DRIVER sees
-  // will have USER name on it
-].join("");
-
-
 var fetchApp = {
   urls: {
-    // usersUrl: 'http://tiny-tiny.herokuapp.com/collections/users',
-    // driversUrl: 'http://tiny-tiny.herokuapp.com/collections/drivers',
-    // requestsUrl: 'http://tiny-tiny.herokuapp.com/collections/requests',
     // URL ROUTES JAMES CREATES WILL GO HERE
+<<<<<<< HEAD
     user:          '/user',
     driver:        '/driver',
     driverRequest:  '/driver-requests',
@@ -41,11 +16,16 @@ var fetchApp = {
     request:       '/request',
     update: '/update-request',
     delete: '/delete-request',
+=======
+    user:              '/user',
+    loginDriver:       '/login-Driver',
+    loginUser:         '/login-User',
+    driver:            '/driver',
+    userRequests:      '/user-requests',
+    request:           '/request',
+>>>>>>> e794a2037b35c2291510edda564f642900ff58fa
   },
 
-  // MAYBE SOME EMPTY OBJECTS TO STORE 'GET' DATA LOCALLY
-    // ONE FOR USER DATA
-    // ONE FOR OPEN REQUESTS TO BE FILTERED
 
   init: function(){
     fetchApp.initStyling();
@@ -61,6 +41,45 @@ var fetchApp = {
     // ALL OUR CLICK EVENTS WILL LIVE HERE
 
     // ON LOGIN FORM SUBMISSION
+<<<<<<< HEAD
+=======
+    $('#letsGo').on('click', function () {
+      var username = "";
+      if ($('select[name=userType]').val() === 'user' &&
+          $('input[type=checkbox]').is(":checked")) {
+                  username = $('input[name="userName"]').val();
+                  fetchApp.addNewUser(username);
+                  // add only this user's open requests to DOM
+      }
+      else if ($('select[name=userType]').val() === 'user' &&
+              !$('input[type=checkbox]').is(":checked")) {
+                  $('#userPage').addClass('active');
+                  $('#loginPage').removeClass('active');
+                  username = $('input[name="userName"]').val();
+                  fetchApp.loginUser(username);
+                  fetchApp.getUserRequests();
+                  // add only this user's open requests to DOM
+      }
+      else if ($('select[name=userType]').val() === 'driver' &&
+               $('input[type=checkbox]').is(":checked")) {
+                  username = $('input[name="userName"]').val();
+                  fetchApp.addNewDriver(username);
+                  // add only this user's open requests to DOM
+      }
+      else {
+                  $('#driverPage').addClass('active');
+                  $('#loginPage').removeClass('active');
+                  username = $('input[name="userName"]').val();
+                  fetchApp.loginDriver(username);
+                  // add only this user's open requests to DOM
+      }
+    });
+
+                  $('.logoutButton').on('click', function () {
+                  $('#loginPage').addClass('active');
+                  $('#loginPage').siblings().removeClass('active');
+    });
+>>>>>>> e794a2037b35c2291510edda564f642900ff58fa
 
   $('#letsGo').on('click', function () {
        var username = "";
@@ -108,6 +127,7 @@ var fetchApp = {
       // change request status to accepted
   },
 
+
   loginDriver: function(driverId) {
     $.ajax({
       url: fetchApp.urls.loginDriver,
@@ -121,6 +141,7 @@ var fetchApp = {
       },
     });
   },
+
 
   addNewDriver: function(driverName) {
     $.ajax({
@@ -154,7 +175,7 @@ var fetchApp = {
     $.ajax({
       url: fetchApp.urls.user,
       method: 'POST',
-      data: {user:userName},
+      data: {user: userName},
       success: function(user) {
         console.log("added username " + userName);
       },
@@ -178,12 +199,15 @@ var fetchApp = {
     });
   },
 
-  getUserRequests: function(requests) {
+
+  getUserRequests: function() {
    $.ajax({
      url: fetchApp.urls.userRequests,
      method:"GET",
      success: function(requests){
-       console.log("gotit"+requests)
+       console.log("gotit"+requests);
+       fetchApp.addRequestsToDom(JSON.parse(requests), templates.user,'#userRequests');
+
      },
      error: function (err) {
        console.log("error: ", err);
@@ -233,21 +257,26 @@ var fetchApp = {
       },
     });
   },
+  addRequestToDom: function(request,template,target){
+    $(target).html(fetchApp.buildRequestHtml(template, request));
 
-  addRequestsToDom: function(requests) {
+
+
+  },
+
+  addRequestsToDom: function(requests, template, target) {
     // will add the given requests to the DOM
+    var htmlStr = "";
+  requests.forEach(function(request){
+      htmlStr += fetchApp.buildRequestHtml(template, request);
+    });
+    $(target).html(htmlStr);
+
   },
 
-  buildUserRequestHtml: function(request) {
-    // will use userRequest template and underscore
-  },
-
-  buildAcceptedRequestHtml: function(request) {
-    // will use acceptedRequest template and underscore
-  },
-
-  buildOpenRequestHtml: function(request) {
-    // will use openRequest template and underscore
-  },
-
-};
+buildRequestHtml: function(template,data) {
+   var requestHtml = _.template(template);
+   console.log(requestHtml(data));
+   return requestHtml(data);
+ }
+ };
