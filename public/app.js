@@ -6,12 +6,16 @@ $(document).ready(function() {
 var fetchApp = {
   urls: {
     // URL ROUTES JAMES CREATES WILL GO HERE
-    user:              '/user',
-    loginDriver:       '/login-Driver',
-    loginUser:         '/login-User',
-    driver:            '/driver',
-    userRequests:      '/user-requests',
-    request:           '/request',
+
+    user:          '/user',
+    driver:        '/driver',
+    driverRequest:  '/driver-requests',
+    loginDriver:   '/login-Driver',
+    loginUser:     '/login-User',
+    userRequests:  '/user-requests',
+    request:       '/request',
+    update: '/update-request',
+    delete: '/delete-request',
   },
 
 
@@ -29,43 +33,41 @@ var fetchApp = {
     // ALL OUR CLICK EVENTS WILL LIVE HERE
 
     // ON LOGIN FORM SUBMISSION
-    $('#letsGo').on('click', function () {
-      var username = "";
-      if ($('select[name=userType]').val() === 'user' &&
-          $('input[type=checkbox]').is(":checked")) {
-                  username = $('input[name="userName"]').val();
-                  fetchApp.addNewUser(username);
-                  // add only this user's open requests to DOM
-      }
-      else if ($('select[name=userType]').val() === 'user' &&
-              !$('input[type=checkbox]').is(":checked")) {
-                  $('#userPage').addClass('active');
-                  $('#loginPage').removeClass('active');
-                  username = $('input[name="userName"]').val();
-                  fetchApp.loginUser(username);
-                  fetchApp.getUserRequests();
-                  // add only this user's open requests to DOM
-      }
-      else if ($('select[name=userType]').val() === 'driver' &&
-               $('input[type=checkbox]').is(":checked")) {
-                  username = $('input[name="userName"]').val();
-                  fetchApp.addNewDriver(username);
-                  // add only this user's open requests to DOM
-      }
-      else {
-                  $('#driverPage').addClass('active');
-                  $('#loginPage').removeClass('active');
-                  username = $('input[name="userName"]').val();
-                  fetchApp.loginDriver(username);
-                  // add only this user's open requests to DOM
-      }
-    });
-
-                  $('.logoutButton').on('click', function () {
-                  $('#loginPage').addClass('active');
-                  $('#loginPage').siblings().removeClass('active');
-    });
-
+  $('#letsGo').on('click', function () {
+       var username = "";
+       if ($('select[name=userType]').val() === 'user' &&
+           $('input[type=checkbox]').is(":checked")) {
+                   username = $('input[name="userName"]').val();
+                   fetchApp.addNewUser(username);
+                   // add only this user's open requests to DOM
+       }
+       else if ($('select[name=userType]').val() === 'user' &&
+               !$('input[type=checkbox]').is(":checked")) {
+                   $('#userPage').addClass('active');
+                   $('#loginPage').removeClass('active');
+                   username = $('input[name="userName"]').val();
+                   fetchApp.loginUser(username);
+                   fetchApp.getUserRequests();
+                   // add only this user's open requests to DOM
+       }
+       else if ($('select[name=userType]').val() === 'driver' &&
+                $('input[type=checkbox]').is(":checked")) {
+                   username = $('input[name="userName"]').val();
+                   fetchApp.addNewDriver(username);
+                   // add only this user's open requests to DOM
+       }
+       else {
+                   $('#driverPage').addClass('active');
+                   $('#loginPage').removeClass('active');
+                   username = $('input[name="userName"]').val();
+                   fetchApp.loginDriver(username);
+                   // add only this user's open requests to DOM
+       }
+     });
+    //  $("logoutButton").on('click', function(){
+    //     $('#userPage',"#").removeClass('active');
+    //     $('#loginPage').addClass('active');
+    //  })
     // ON NEW REQUEST FORM SUBMISSION (USER SIDE)
       // get value of request text input
       // add new request to database and DOM
@@ -77,17 +79,48 @@ var fetchApp = {
       // change request status to accepted
   },
 
-  // ALL THE OTHER FUNCTIONS WE WRITE WILL GO HERE
+
+  loginDriver: function(driverId) {
+    $.ajax({
+      url: fetchApp.urls.loginDriver,
+      method: 'POST',
+      data: {name:driverId},
+      success: function(driverId) {
+        console.log("logged in driver" + driverId);
+      },
+      error: function(err) {
+        console.log("ERROR", err);
+      },
+    });
+  },
+
 
   addNewDriver: function(driverName) {
-      // ajax POST call to driversUrl
-      // will add a new driver object to database
+    $.ajax({
+      url: fetchApp.urls.driver,
+      method: 'POST',
+      data: {driver:driverName},
+      success: function(driverName) {
+        console.log("added new driver" + driverName);
+      },
+      error: function(err) {
+        console.log("ERROR", err);
+      },
+    });
   },
 
   getDriverRequests: function(driverId) {
-      // will filter requests matching the driverId
-      // these will be requests the driver has committed to
-      // fulfill, but has not yet completed
+      $.ajax({
+        url:fetchApp.urls.driverRequest,
+        method:'GET',
+        data:{driver:driverId},
+        success: function(requests) {
+         console.log("driver got request"+requests);
+       },
+       error:function(err){
+         console.log("ERROR",err);
+       },
+     });
   },
 
   addNewUser: function(userName) {
@@ -96,7 +129,7 @@ var fetchApp = {
       method: 'POST',
       data: {user: userName},
       success: function(user) {
-        console.log("added user " + userName);
+        console.log("added username " + userName);
       },
       error: function(err) {
         console.log("ERROR", err);
@@ -104,24 +137,33 @@ var fetchApp = {
     });
   },
 
-  loginUser: function(userName) {
+  loginUser: function(user) {
     $.ajax({
       url: fetchApp.urls.loginUser,
       method: 'POST',
-      data: {name: userName},
+      data: {name:user},
       success: function(response) {
-        console.log("logged in" + userName);
+        console.log("logged in" + user);
       },
+      error: function (err) {
+      console.log("error: ", err);
+    },
     });
   },
+
 
   getUserRequests: function() {
    $.ajax({
      url: fetchApp.urls.userRequests,
      method:"GET",
      success: function(requests){
-       console.log("gotit"+requests)
+       console.log("gotit"+requests);
+       fetchApp.addRequestsToDom(JSON.parse(requests), templates.user,'#userRequests');
+
      },
+     error: function (err) {
+       console.log("error: ", err);
+     }
    });
   },
 
@@ -129,39 +171,59 @@ var fetchApp = {
     $.ajax({
       url: fetchApp.urls.request,
       method: 'POST',
-      data: requestText,
+      data: {requestText:requestText},
       success: function(response) {
         console.log("gave new request to james");
+      },
+      error: function (err) {
+        console.log("error: ", err);
       },
     });
     // now needs to add to DOM
   },
 
-
-  acceptRequest: function(requestId, driverId) {
-    // ajax PUT call to requestsUrl
-    // will change the status of a request from open to committed
-    // and add the driverId to the request
+  acceptRequest: function(requestId) {
+    $.ajax({
+      url: fetchApp.urls.update,
+      method:'POST',
+      data: {status:"accpted",id:requestId},
+      success: function(){
+        console.log('request accepted by driver');
+      },
+      error: function (err) {
+        console.log("error: ", err);
+      },
+    });
   },
 
   deleteRequest: function(requestId) {
-    // ajax DELETE call to requestsUrl
-    // will delete a request from the requests JSON object
-    // when a user deletes or confirms delivery
+    $.ajax({
+      url: fetchApp.urls.delete,
+      method: "POST",
+      data:{requestId:requestId},
+      success: function(){
+        console.log('request deleted')
+      },
+      error: function (err) {
+        console.log("error: ", err);
+      },
+    });
   },
 
-  addRequestsToDom: function(requests) {
-    // will add the given requests to the DOM
+  addRequestsToDom: function(requests, template, target) {
+    var htmlStr = "";
+    requests.forEach(function(request){
+      htmlStr += fetchApp.buildRequestHtml(template, request);
+    });
+    $(target).html(htmlStr);
+  },
+
+  addRequestToDom: function(request,template,target){
+    $(target).html(fetchApp.buildRequestHtml(template, request));
   },
 
   buildRequestHtml: function(template,data) {
     var requestHtml = _.template(template);
-    console.log(requestHtml(data));
-  return requestHtml(data);
+    return requestHtml(data);
   },
-  
-addRequestToDom: function(request,template,target){
-  $(target).html(fetchApp.buildRequestHtml(template, request));
-},
-
 };
