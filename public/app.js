@@ -137,6 +137,7 @@ var fetchApp = {
     // now needs to add to DOM
   },
 
+
   acceptRequest: function(requestId, driverId) {
     // ajax PUT call to requestsUrl
     // will change the status of a request from open to committed
@@ -153,16 +154,14 @@ var fetchApp = {
     // will add the given requests to the DOM
   },
 
-  buildUserRequestHtml: function(request) {
-    // will use userRequest template and underscore
+  buildRequestHtml: function(template,data) {
+    var requestHtml = _.template(template);
+    console.log(requestHtml(data));
+  return requestHtml(data);
   },
-
-  buildAcceptedRequestHtml: function(request) {
-    // will use acceptedRequest template and underscore
-  },
-
-  buildOpenRequestHtml: function(request) {
-    // will use openRequest template and underscore
-  },
+  
+addRequestToDom: function(request,template,target){
+  $(target).html(fetchApp.buildRequestHtml(template, request));
+},
 
 };

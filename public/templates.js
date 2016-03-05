@@ -24,4 +24,3 @@ templates.user = [
      '<div class="acceptButton">Accept</div>',
    '</div>',
   ].join("");
-}
