@@ -12,7 +12,7 @@ public class Main {
         Statement stmt = conn.createStatement();
         stmt.execute("CREATE TABLE IF NOT EXISTS users (id IDENTITY, name VARCHAR UNIQUE)");
         stmt.execute("CREATE TABLE IF NOT EXISTS drivers (id IDENTITY, name VARCHAR UNIQUE)");
-        stmt.execute("CREATE TABLE IF NOT EXISTS requests (id IDENTITY, user_id INT, driver_id INT, request VARCHAR, status VARCHAR)");
+        stmt.execute("CREATE TABLE IF NOT EXISTS requests (id IDENTITY, user_id INT, driver_id INT, request VARCHAR, status VARCHAR NOT NULL)");
     }
     public static void insertUser(Connection conn, String name) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO users VALUES (NULL, ?)");
@@ -73,11 +73,39 @@ public class Main {
         stmt.setInt(3, id);
         stmt.execute();
     }
+    public static void deleteUser(Connection conn, User user) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM users WHERE id = ?");
+        stmt.setInt(1, user.getId());
+        stmt.execute();
+    }
+    public static void deleteDriver(Connection conn, Driver driver) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM drivers WHERE id = ?");
+        stmt.setInt(1, driver.getId());
+        stmt.execute();
+    }
+    public static void deleteRequest(Connection conn, int id, User user) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM requests WHERE id = ? AND user_id = ?");
+        stmt.setInt(1, id);
+        stmt.setInt(2, user.getId());
+        stmt.execute();
+    }
     public static User getUserFromSession(Session session){
         return session.attribute("name");
     }
     public static Driver getDriverFromSession(Session session){
         return session.attribute("name");
+    }
+    public static void userLoginCheck(User user){
+        if(user==null){
+            logger.error("User Not Logged In");
+            Spark.halt(401, "User Not Logged In");
+        }
+    }
+    public static void driverLoginCheck(Driver driver){
+        if(driver==null){
+            logger.error("Driver Not Logged In");
+            Spark.halt(401, "Driver Not Logged In");
+        }
     }
     final static Logger logger = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) throws SQLException {
@@ -186,13 +214,10 @@ public class Main {
                 "/request",
                 ((request, response) -> {
                     User user = getUserFromSession(request.session());
-                    if(user==null){
-                        logger.error("User Not Logged In");
-                        Spark.halt(401, "User Not Logged In");
-                    }
+                    userLoginCheck(user);
                     String requestText = request.queryParams("requestText");
                     try {
-                        insertRequest(conn, user.id, requestText);
+                        insertRequest(conn, user.getId(), requestText);
                     }catch(SQLException e){
                         logger.error("Error Inserting Request");
                         Spark.halt(500, "Error Inserting Request: " + e.getMessage());
@@ -204,45 +229,87 @@ public class Main {
                 "/user-requests",
                 ((request, response) -> {
                     User user = getUserFromSession(request.session());
-                    if(user==null){
-                        logger.error("User Not Logged In");
-                        Spark.halt(401, "User Not Logged In");
-                    }
+                    userLoginCheck(user);
                     JsonSerializer s = new JsonSerializer();
-                    return s.serialize(selectUserRequests(conn, user.id));
+                    return s.serialize(selectUserRequests(conn, user.getId()));
                 })
         );
         Spark.get(
                 "/driver-requests",
                 ((request, response) -> {
                     Driver driver = getDriverFromSession(request.session());
-                    if(driver==null){
-                        logger.error("Driver Not Logged In");
-                        Spark.halt(401, "Driver Not Logged In");
-                    }
+                    driverLoginCheck(driver);
                     JsonSerializer s = new JsonSerializer();
-                    return s.serialize(selectDriverRequests(conn, driver.id));
+                    return s.serialize(selectDriverRequests(conn, driver.getId()));
                 })
         );
         Spark.post(
                 "/update-request",
                 ((request, response) -> {
                     Driver driver = getDriverFromSession(request.session());
-                    if(driver==null){
-                        logger.error("Driver Not Logged In");
-                        Spark.halt(401, "Driver Not Logged In");
-                    }
+                    driverLoginCheck(driver);
                     String status = request.queryParams("status");
                     String requestIdStr = request.queryParams("id");
                     if(!requestIdStr.isEmpty()) {
                         int requestId = Integer.valueOf(requestIdStr);
                         try {
-                            updateStatus(conn, requestId, status, driver.id);
+                            updateStatus(conn, requestId, status, driver.getId());
                         }catch(SQLException e){
                             logger.error("Error Updating Request Status");
                             Spark.halt(500, "Error Updating Request Status: " + e.getMessage());
                         }
                     }
+                    return "";
+                })
+        );
+        Spark.post(
+                "/delete-user",
+                ((request, response) -> {
+                    User user = getUserFromSession(request.session());
+                    userLoginCheck(user);
+                    try{
+                        deleteUser(conn, user);
+                    }catch (SQLException e){
+                        logger.error("Error Deleting User");
+                        Spark.halt(500, "Error Deleting User: " + e.getMessage());
+                    }
+                    return "";
+                })
+        );
+        Spark.post(
+                "/delete-driver",
+                ((request, response) -> {
+                    Driver driver = getDriverFromSession(request.session());
+                    driverLoginCheck(driver);
+                    try{
+                        deleteDriver(conn, driver);
+                    }catch (SQLException e){
+                        logger.error("Error Deleting Driver");
+                        Spark.halt(500, "Error Deleting Driver: " + e.getMessage());
+                    }
+                    return "";
+                })
+        );
+        Spark.post(
+                "/delete-request",
+                ((request, response) -> {
+                    int requestId = -1;
+                    User user = getUserFromSession(request.session());
+                    String requestIdStr = request.queryParams("requestId");
+                    userLoginCheck(user);
+                    if(requestIdStr.isEmpty()){
+                        logger.error("Error Deleting Request: Request ID Cannot Be Empty");
+                        Spark.halt(400, "Error Deleting Request: Request ID Cannot Be Empty");
+                    }else{
+                        requestId = Integer.valueOf(requestIdStr);
+                    }
+                    try{
+                        deleteRequest(conn, requestId, user);
+                    }catch (SQLException e){
+                        logger.error("Error Deleting Request");
+                        Spark.halt(500, "Error Deleting Request: " + e.getMessage());
+                    }
+
                     return "";
                 })
         );
