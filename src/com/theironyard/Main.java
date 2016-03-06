@@ -206,7 +206,8 @@ public class Main {
                     }
                     Session session = request.session();
                     session.attribute("name", user);
-                    return user;
+                    JsonSerializer s = new JsonSerializer();
+                    return s.serialize(user);
                 })
         );
         Spark.post(
@@ -225,7 +226,8 @@ public class Main {
                     }
                     Session session = request.session();
                     session.attribute("name", selectDriver(conn, name));
-                    return selectDriver(conn, name);
+                    JsonSerializer s = new JsonSerializer();
+                    return s.serialize(selectDriver(conn, name));
                 })
         );
         Spark.post(
