@@ -1,7 +1,7 @@
 var templates = {};
 
 templates.user = [
-  '<div class="userRequest">',
+  '<div class="userRequests">',
     '<h4> <%= request %></h4>',
     '<p>Status: <%= status %></p>',
     '<p>Driver: <%= driverId %></p>',
@@ -11,12 +11,10 @@ templates.user = [
 ].join("");
 
 templates.userOpen = [
-  '<div class="userRequest">',
-    '<h4> <%= request %></h4>',
-    // '<p>Status: <%= status %></p>',
-    '<div class="completeButton" data-id= <%= id %> >Complete</div>',
-    '<div class="deleteButton" data-id= <%= id %> >Cancel</div>',
-  '</div>'
+  '<div class="openUserRequests">',
+    '<h4>Get me 2 beef Doritos Locos tacos</h4>',
+    '<div class="deleteButton">Cancel</div>',
+  '</div>',
 ].join("");
 
   templates.accepted = [
