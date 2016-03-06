@@ -1,9 +1,10 @@
 $blue: rgba(35, 99, 173, 1);
+// $purple: #5B3DB1;
 $tintBlue: rgba(19, 67, 123, .85);
+// $tintPurp: rgba(64, 45, 134, .84);
 $serif: 'Roboto Slab', serif;
 
 * {
-  // font-family: 'Roboto Slab', serif;
   font-family: 'Open Sans', Helvetica, sans-serif;
 }
 
@@ -40,6 +41,7 @@ section {
 
 .button {
   border: 1px solid black;
+  border-radius: 1px;
   width: 100px;
   padding: 4px;
   text-align: center;
@@ -89,7 +91,6 @@ section {
     @extend .button;
     display: block;
     padding: 8px;
-    width: 70px;
     font-size: 16px;
     margin: auto;
   }
@@ -164,6 +165,7 @@ h1 {
 
 .request {
   box-shadow: 2px 2px 2px black;
+  border-radius: 4px;
   margin: 10px;
   background: white;
   padding: 12px;
@@ -208,6 +210,10 @@ h1 {
   }
 }
 
+#openUserRequests .deleteButton {
+  margin-top: 12px;
+}
+
 #driverPage {
   background: $blue;
   border-radius: 7px;
@@ -216,7 +222,6 @@ h1 {
   box-shadow: 0px 3px 16px 2px rgba(0, 0, 0, 0.71);
   .openRequest, .acceptedRequest {
     @extend .request;
-    // width: 100%;
   }
   h2 {
     display: inline-block;

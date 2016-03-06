@@ -30,9 +30,10 @@ var fetchApp = {
   },
 
   initEvents: function(){
-    fetchApp.autoUpdateRequests();
+    // fetchApp.autoUpdateRequests();
     // ON LOGIN FORM SUBMISSION
-    $('#letsGo').on('click', function () {
+    $('#loginForm').on('submit', function (event) {
+      event.preventDefault();
        var username = "";
        if ($('select[name=userType]').val() === 'user' &&
            $('input[type=checkbox]').is(":checked")) {
