@@ -51,7 +51,7 @@ public class Main {
         results.next();
         return new Driver(results.getInt("id"), results.getString("name"));
     }
-    public static ArrayList<Request> selectUserRequests(Connection conn, int userId) throws SQLException {
+    public static ArrayList<Request> selectUserReceivedRequests(Connection conn, int userId) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("SELECT requests.id, requests.request, requests.status, drivers.name FROM requests INNER JOIN drivers ON requests.driver_id=drivers.id INNER JOIN users ON requests.user_id=users.id WHERE users.id = ?");
         stmt.setInt(1, userId);
         ResultSet results = stmt.executeQuery();
@@ -60,6 +60,16 @@ public class Main {
             userRequests.add(new Request(results.getInt("requests.id"), results.getString("requests.request"), results.getString("requests.status"), results.getString("drivers.name")));
         }
         return userRequests;
+    }
+    public static ArrayList<Request> selectUserOpenRequests(Connection conn, int userId, String open) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT requests.id, requests.request, requests.status FROM requests INNER JOIN users ON requests.user_id=users.id WHERE requests.status = ?");
+        stmt.setString(1, open);
+        ResultSet results = stmt.executeQuery();
+        ArrayList<Request> userOpenRequests = new ArrayList<>();
+        while(results.next()){
+            userOpenRequests.add(new Request(results.getString("users.name"), results.getInt("requests.id"), results.getString("requests.request"), results.getString("requests.status")));
+        }
+        return userOpenRequests;
     }
     public static ArrayList<Request> selectDriverRequests(Connection conn, int driverId) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("SELECT requests.id, requests.request, requests.status, users.name FROM requests INNER JOIN drivers ON requests.driver_id=drivers.id INNER JOIN users ON requests.user_id=users.id WHERE drivers.id = ?");
@@ -72,7 +82,7 @@ public class Main {
         return driverRequests;
     }
     public static ArrayList<Request> selectOpenRequests(Connection conn, String open) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT requests.id, requests.request, requests.status, users.name FROM requests INNER JOIN drivers ON requests.driver_id=drivers.id INNER JOIN users ON requests.user_id=users.id WHERE requests.status = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT requests.id, requests.request, requests.status, users.name FROM requests INNER JOIN users ON requests.user_id=users.id WHERE requests.status = ?");
         stmt.setString(1, open);
         ResultSet results = stmt.executeQuery();
         ArrayList<Request> openRequests = new ArrayList<>();
@@ -308,7 +318,16 @@ public class Main {
                     User user = getUserFromSession(request.session());
                     userLoginCheck(user);
                     JsonSerializer s = new JsonSerializer();
-                    return s.serialize(selectUserRequests(conn, user.getId()));
+                    return s.serialize(selectUserReceivedRequests(conn, user.getId()));
+                })
+        );
+        Spark.get(
+                "/user-open-requests",
+                ((request, response) -> {
+                    User user = getUserFromSession(request.session());
+                    userLoginCheck(user);
+                    JsonSerializer s = new JsonSerializer();
+                    return s.serialize(selectUserOpenRequests(conn, user.getId(), "OPEN"));
                 })
         );
         Spark.get(

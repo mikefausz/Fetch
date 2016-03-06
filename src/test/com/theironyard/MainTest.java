@@ -44,7 +44,7 @@ public class MainTest {
         Connection conn = startConnection();
         Main.insertUser(conn, "Bob");
         Main.insertRequest(conn, 1, "get");
-        ArrayList<Request> requests = Main.selectUserRequests(conn, 1);
+        ArrayList<Request> requests = Main.selectUserOpenRequests(conn, 1, "OPEN");
         conn.close();
         assertTrue(requests.size()==1);
     }
@@ -56,7 +56,7 @@ public class MainTest {
         Main.insertRequest(conn, 1, "get");
         Main.insertDriver(conn, "Bob");
         Main.updateStatus(conn, 1, "Closed", 1);
-        ArrayList<Request> requests = Main.selectUserRequests(conn, 1);
+        ArrayList<Request> requests = Main.selectUserReceivedRequests(conn, 1);
         conn.close();
         assertTrue(requests.size()==1);
     }
@@ -67,7 +67,7 @@ public class MainTest {
         Main.insertUser(conn, "Bob");
         Main.insertRequest(conn, 1, "get");
         Main.updateStatus(conn, 1, "Closed", 1);
-        ArrayList<Request> requests = Main.selectUserRequests(conn, 1);
+        ArrayList<Request> requests = Main.selectUserOpenRequests(conn, 1, "OPEN");
         conn.close();
         assertTrue(requests.get(0).getStatus().equals("Closed"));
     }
