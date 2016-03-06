@@ -200,6 +200,10 @@ public class Main {
                     }
                     try{
                         user = selectUser(conn, name);
+                        if (user==null){
+                            logger.error("Error Retrieving User From Database");
+                            Spark.halt(404, "Error Retrieving User From Database: ");
+                        }
                     }catch (SQLException e){
                         logger.error("Error Retrieving User From Database");
                         Spark.halt(404, "Error Retrieving User From Database: " + e.getMessage());
@@ -219,7 +223,10 @@ public class Main {
                         Spark.halt(400, "Driver Name Cannot Be Empty");
                     }
                     try{
-                        selectDriver(conn, name);
+                        if(selectDriver(conn, name)==null){
+                            logger.error("Error Retrieving Driver From Database");
+                            Spark.halt(404, "Error Retrieving Driver From Database: ");
+                        }
                     }catch (SQLException e){
                         logger.error("Error Retrieving Driver From Database");
                         Spark.halt(404, "Error Retrieving Driver From Database: " + e.getMessage());
@@ -247,6 +254,15 @@ public class Main {
                     if(driverStr.isEmpty()){
                         logger.error("Driver Field Cannot Be Empty");
                         Spark.halt(400, "Driver Field Cannot Be Empty");
+                    }
+                    try{
+                        if(selectDriver(conn, driverStr)==null){
+                            logger.error("Error Retrieving Driver From Database");
+                            Spark.halt(404, "Error Retrieving Driver From Database: ");
+                        }
+                    }catch (SQLException e){
+                        logger.error("Error Retrieving Driver From Database");
+                        Spark.halt(404, "Error Retrieving Driver From Database: " + e.getMessage());
                     }
                     JsonSerializer s = new JsonSerializer();
                     return s.serialize(selectDriver(conn, driverStr));
@@ -278,6 +294,16 @@ public class Main {
                     if(userStr.isEmpty()){
                         logger.error("User Field Cannot Be Empty");
                         Spark.halt(400, "User Field Cannot Be Empty");
+                    }
+                    try{
+                        user = selectUser(conn, userStr);
+                        if (user==null){
+                            logger.error("Error Retrieving User From Database");
+                            Spark.halt(404, "Error Retrieving User From Database: ");
+                        }
+                    }catch (SQLException e){
+                        logger.error("Error Retrieving User From Database");
+                        Spark.halt(404, "Error Retrieving User From Database: " + e.getMessage());
                     }
                     JsonSerializer s = new JsonSerializer();
                     return s.serialize(selectUser(conn, userStr));
@@ -352,26 +378,26 @@ public class Main {
                 })
         );
         Spark.post(
-        "/update-request",
-        ((request, response) -> {
-            Driver driver = getDriverFromSession(request.session());
-            driverLoginCheck(driver);
-            String status = request.queryParams("status");
-            String requestIdStr = request.queryParams("id");
-            if(!requestIdStr.isEmpty()) {
-                try {
-                    int requestId = Integer.valueOf(requestIdStr);
-                    updateStatus(conn, requestId, status, driver.getId());
-                }catch(SQLException e){
-                    logger.error("Error Updating Request Status");
-                    Spark.halt(500, "Error Updating Request Status: " + e.getMessage());
-                }catch (NumberFormatException n){
-                    logger.error("Error Converting String To ID");
-                    Spark.halt(400, "Error Converting String To ID: " + n.getMessage());
-                }
-            }
-            return "";
-        })
+                "/update-request",
+                ((request, response) -> {
+                    Driver driver = getDriverFromSession(request.session());
+                    driverLoginCheck(driver);
+                    String status = request.queryParams("status");
+                    String requestIdStr = request.queryParams("id");
+                    if(!requestIdStr.isEmpty()) {
+                        try {
+                            int requestId = Integer.valueOf(requestIdStr);
+                            updateStatus(conn, requestId, status, driver.getId());
+                        }catch(SQLException e){
+                            logger.error("Error Updating Request Status");
+                            Spark.halt(500, "Error Updating Request Status: " + e.getMessage());
+                        }catch (NumberFormatException n){
+                            logger.error("Error Converting String To ID");
+                            Spark.halt(400, "Error Converting String To ID: " + n.getMessage());
+                        }
+                    }
+                    return "";
+                })
         );
         Spark.post(
                 "/delete-user",
