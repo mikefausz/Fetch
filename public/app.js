@@ -14,6 +14,7 @@ var fetchApp = {
     loginDriver:   '/login-Driver',
     loginUser:     '/login-User',
     userRequests:  '/user-requests',
+    openUserRequests: '/user-requests-requests',
     request:       '/request',
     update: '/update-request',
     delete: '/delete-request',
@@ -175,6 +176,7 @@ var fetchApp = {
         $('#userPage').addClass('active');
         $('#loginPage').removeClass('active');
         fetchApp.getUserRequests();
+        fetchApp.getUserOpenRequests();
       },
       error: function (err) {
       console.log("error: ", err);
@@ -191,7 +193,20 @@ var fetchApp = {
      success: function(requests){
        console.log("gotit"+requests);
        fetchApp.addRequestsToDom(JSON.parse(requests), templates.user,'#userRequests');
+     },
+     error: function (err) {
+       console.log("error: ", err);
+     }
+   });
+  },
 
+  getUserOpenRequests: function() {
+   $.ajax({
+     url: fetchApp.urls.userOpenRequests,
+     method:"GET",
+     success: function(requests){
+       console.log("gotit"+requests);
+       fetchApp.addRequestsToDom(JSON.parse(requests), templates.userOpen,'#openUserRequests');
      },
      error: function (err) {
        console.log("error: ", err);

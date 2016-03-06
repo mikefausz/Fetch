@@ -10,6 +10,15 @@ templates.user = [
   '</div>'
 ].join("");
 
+templates.userOpen = [
+  '<div class="userRequest">',
+    '<h4> <%= request %></h4>',
+    // '<p>Status: <%= status %></p>',
+    '<div class="completeButton" data-id= <%= id %> >Complete</div>',
+    '<div class="deleteButton" data-id= <%= id %> >Cancel</div>',
+  '</div>'
+].join("");
+
   templates.accepted = [
     '<div class="acceptedRequest">',
       '<h4> <%= request %></h4>',
@@ -17,7 +26,7 @@ templates.user = [
     '</div>',
    ].join("");
 
- templates.request = [
+ templates.open = [
    '<div class="openRequest">',
     '<h4> <%= request %></h4>',
      '<p> <%= userId %></p>',
