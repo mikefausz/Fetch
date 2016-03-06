@@ -86,7 +86,9 @@ var fetchApp = {
     });
 
     // ON ACCEPT REQUEST BUTTON CLICK (DRIVER SIDE)
-      // change request status to accepted
+    $('#driverPage').on('click', '.acceptButton', function(event) {
+      fetchApp.acceptRequest($(this).data('id'));
+    });
   },
 
 
