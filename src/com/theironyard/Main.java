@@ -62,7 +62,7 @@ public class Main {
         return userRequests;
     }
     public static ArrayList<Request> selectUserOpenRequests(Connection conn, int userId, String open) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT requests.id, requests.request, requests.status FROM requests INNER JOIN users ON requests.user_id=users.id WHERE requests.status = ? AND WHERE requests.user_id = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT users.name, requests.id, requests.request, requests.status FROM requests INNER JOIN users ON requests.user_id=users.id WHERE requests.status = ? AND WHERE requests.user_id = ?");
         stmt.setString(1, open);
         stmt.setInt(2, userId);
         ResultSet results = stmt.executeQuery();
