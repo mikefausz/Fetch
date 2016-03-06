@@ -14,7 +14,7 @@ var fetchApp = {
     loginDriver:   '/login-Driver',
     loginUser:     '/login-User',
     userRequests:  '/user-requests',
-    openUserRequests: '/user-open-requests',
+    userOpenRequests: '/user-open-requests',
     request:       '/request',
     update: '/update-request',
     delete: '/delete-request',
@@ -86,7 +86,9 @@ var fetchApp = {
     });
 
     // ON ACCEPT REQUEST BUTTON CLICK (DRIVER SIDE)
-      // change request status to accepted
+    $('#driverPage').on('click', '.acceptButton', function(event) {
+      fetchApp.acceptRequest($(this).data('id'));
+    });
   },
 
 
@@ -202,7 +204,7 @@ var fetchApp = {
 
   getUserOpenRequests: function() {
    $.ajax({
-    //  url: fetchApp.urls.openUserRequests,
+    //  url: fetchApp.urls.userOpenRequests,
     url: '/user-open-requests',
      method:"GET",
      success: function(requests){

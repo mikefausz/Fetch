@@ -12,8 +12,8 @@ templates.user = [
 
 templates.userOpen = [
   '<div class="openUserRequests">',
-    '<h4>Get me 2 beef Doritos Locos tacos</h4>',
-    '<div class="deleteButton">Cancel</div>',
+    '<h4> <%= request %></h4>',
+    '<div class="deleteButton" data-id= <%= id %>>Cancel</div>',
   '</div>',
 ].join("");
 
@@ -28,6 +28,6 @@ templates.userOpen = [
    '<div class="openRequest">',
     '<h4> <%= request %></h4>',
      '<p> <%= userId %></p>',
-     '<div class="acceptButton">Accept</div>',
+     '<div class="acceptButton" data-id= <%= id %>>Accept</div>',
    '</div>',
   ].join("");
