@@ -30,6 +30,7 @@ section {
 
 .button, #loginBox #letsGo, header .logoutButton, #userPage #submitRequest, #userPage .deleteButton, #userPage .completeButton, #driverPage .acceptButton {
   border: 1px solid black;
+  border-radius: 1px;
   width: 100px;
   padding: 4px;
   text-align: center;
@@ -71,7 +72,6 @@ section {
   #loginBox #letsGo {
     display: block;
     padding: 8px;
-    width: 70px;
     font-size: 16px;
     margin: auto; }
 
@@ -130,6 +130,7 @@ h1 {
 
 .request, #userPage #requestFormBox, #userPage .userRequest, #userPage .userOpenRequest, #driverPage .openRequest, #driverPage .acceptedRequest {
   box-shadow: 2px 2px 2px black;
+  border-radius: 4px;
   margin: 10px;
   background: white;
   padding: 12px; }
@@ -159,6 +160,9 @@ h1 {
   #userPage .deleteButton, #userPage .completeButton {
     display: inline-block;
     margin-right: 8px; }
+
+#openUserRequests .deleteButton {
+  margin-top: 12px; }
 
 #driverPage {
   background: #2363ad;
