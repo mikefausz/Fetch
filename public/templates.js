@@ -1,26 +1,26 @@
 var templates = {};
 
 templates.user = [
-  '<div class="userRequests">',
-    '<h4> <%= request %></h4>',
+  '<div class="userRequest">',
+    '<h4><%= request %></h4>',
     '<p>Status: <%= status %></p>',
     '<p>Driver: <%= driverId %></p>',
-    '<div class="completeButton" data-id= <%= id %>>Complete</div>',
+    '<div class="deleteButton" data-id= <%= id %>>Complete</div>',
     '<div class="deleteButton" data-id= <%= id %>>Cancel</div>',
   '</div>'
 ].join("");
 
 templates.userOpen = [
-  '<div class="openUserRequests">',
-    '<h4> <%= request %></h4>',
-    '<div class="deleteButton" data-id= <%= id %>>Cancel</div>',
+  '<div class="userOpenRequest">',
+    '<h4><%= request %></h4>',
+    '<div class="deleteButton" data-id=<%= id %>>Cancel</div>',
   '</div>',
 ].join("");
 
   templates.accepted = [
     '<div class="acceptedRequest">',
-      '<h4> <%= request %></h4>',
-      '<p>  <%= userId %></p>',
+      '<h4><%= request %></h4>',
+      '<p>User: <%= userId %></p>',
     '</div>',
    ].join("");
 

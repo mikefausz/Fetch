@@ -1,15 +1,15 @@
 $blue: rgba(35, 99, 173, 1);
 $tintBlue: rgba(19, 67, 123, .85);
+$serif: 'Roboto Slab', serif;
 
 * {
-  font-family: 'Roboto Slab', serif;
-  // font-family: 'Open Sans', Helvetica, sans-serif;
+  // font-family: 'Roboto Slab', serif;
+  font-family: 'Open Sans', Helvetica, sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   background-color: $blue;
   background-image: url('./fetch-bg.jpeg');
   background-attachment: fixed;
@@ -27,17 +27,6 @@ section {
   width: 80%;
   margin: auto;
 }
-
-// #bg {
-//   position: absolute;
-//   height: 100%;
-//   width: 100%;
-//   // background-image: url("https://images.unsplash.com/photo-1456143077270-30de0a1bf7bc?crop=entropy&dpr=2&fit=crop&fm=jpg&h=725&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1300");
-//   background-image: url('./fetch-bg.jpeg');
-//   background-position-y: 28%;
-//   background-position-x: 55%;
-//   background-size: 160%;
-// }
 
 #tint {
   position: fixed;
@@ -84,6 +73,7 @@ section {
     margin-top: 0;
     font-size: 14px;
     text-shadow: 2px 2px 2px black;
+    font-family: $serif;
   }
   form {
     margin: 29px auto;
@@ -135,21 +125,30 @@ header {
   width: 100%;
   background-color: $blue;
   text-align: center;
+  h3 {
+    margin: 0;
+    float: left;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+  }
+  h3, span {
+        font-family: $serif;
+  }
+  .logoutButton {
+    @extend .button;
+    float: right;
+    margin-right: 12px;
+  }
 }
 
 h1 {
   font-size: 5rem;
-  margin: 20px 0 0 0;
+  margin: 0;
   display: inline-block;
   color: white;
   text-align: center;
   font-family: 'Lobster', cursive;
   text-shadow: 2px 2px 2px black;
-}
-
-.logoutButton {
-  @extend .button;
-  margin: auto;
 }
 
 .headerCol {
@@ -160,7 +159,7 @@ h1 {
 
 .requestContainer{
   display: inline-block;
-  width: 65%;
+  width: 69%;
 }
 
 .request {
@@ -171,21 +170,16 @@ h1 {
   h4 {
     margin: 0;
     font-size: 24px;
+    font-family: $serif;
   }
 }
 
 #userPage {
   background: $blue;
   border-radius: 7px;
-  padding: 0 30px;
+  padding: 25px 30px 20px 42px;
   margin-top: 10px;
   box-shadow: 0px 3px 16px 2px rgba(0, 0, 0, 0.71);
-  h3 {
-    display: inline-block;
-    vertical-align: middle;
-    color: white;
-    margin: 0;
-  }
   h2 {
     display: inline-block;
     color: white;
@@ -194,8 +188,9 @@ h1 {
     margin: 0;
     text-shadow: 2px 2px 2px black;
   }
-  #requestFormBox, .userRequest {
+  #requestFormBox, .userRequest, .userOpenRequest {
     @extend .request;
+    // width: 100%;
   }
   textarea {
     font-size: 16px;
@@ -216,12 +211,12 @@ h1 {
 #driverPage {
   background: $blue;
   border-radius: 7px;
-  padding: 0 30px;
+  padding: 25px 30px 20px 42px;
   margin-top: 10px;
   box-shadow: 0px 3px 16px 2px rgba(0, 0, 0, 0.71);
   .openRequest, .acceptedRequest {
     @extend .request;
-    width: 100%;
+    // width: 100%;
   }
   h2 {
     display: inline-block;
