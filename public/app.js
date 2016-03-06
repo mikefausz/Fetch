@@ -9,11 +9,12 @@ var fetchApp = {
 
     user:          '/user',
     driver:        '/driver',
-    driverRequest:  '/driver-requests',
-    openRequest:  '/open-requests',
+    driverRequests:  '/driver-requests',
+    openRequests:  '/open-requests',
     loginDriver:   '/login-Driver',
     loginUser:     '/login-User',
     userRequests:  '/user-requests',
+    openUserRequests: '/user-open-requests',
     request:       '/request',
     update: '/update-request',
     delete: '/delete-request',
@@ -103,7 +104,7 @@ var fetchApp = {
       },
       error: function(err) {
         console.log("ERROR", err);
-        alert("Welcome to Fetch!\n\nPlease create a new Driver Account.")
+        alert("Welcome to Fetch!\n\nPlease create a new Driver Account.");
       },
     });
   },
@@ -125,10 +126,10 @@ var fetchApp = {
 
   getDriverRequests: function() {
       $.ajax({
-        url:fetchApp.urls.driverRequest,
+        url:fetchApp.urls.driverRequests,
         method:'GET',
         success: function(requests) {
-         console.log("driver got request"+requests);
+         console.log("DRIVER ACCEPTED"+requests);
          fetchApp.addRequestsToDom(JSON.parse(requests), templates.accepted,'#acceptedRequests');
        },
        error:function(err){
@@ -139,10 +140,10 @@ var fetchApp = {
 
   getOpenRequests: function() {
       $.ajax({
-        url:fetchApp.urls.openRequest,
+        url:fetchApp.urls.openRequests,
         method:'GET',
         success: function(requests) {
-         console.log("driver got request"+requests);
+         console.log("driver OPEN"+requests);
          fetchApp.addRequestsToDom(JSON.parse(requests), templates.open,'#openRequests');
        },
        error:function(err){
@@ -175,10 +176,11 @@ var fetchApp = {
         $('#userPage').addClass('active');
         $('#loginPage').removeClass('active');
         fetchApp.getUserRequests();
+        fetchApp.getUserOpenRequests();
       },
       error: function (err) {
       console.log("error: ", err);
-      alert("Welcome to Fetch!\n\nPlease create a new User Account.")
+      alert("Welcome to Fetch!\n\nPlease create a new User Account.");
     },
     });
   },
@@ -189,9 +191,22 @@ var fetchApp = {
      url: fetchApp.urls.userRequests,
      method:"GET",
      success: function(requests){
-       console.log("gotit"+requests);
+       console.log("USER ACCEPTED"+requests);
        fetchApp.addRequestsToDom(JSON.parse(requests), templates.user,'#userRequests');
+     },
+     error: function (err) {
+       console.log("error: ", err);
+     }
+   });
+  },
 
+  getUserOpenRequests: function() {
+   $.ajax({
+     url: fetchApp.urls.userOpenRequests,
+     method:"GET",
+     success: function(requests){
+       console.log("USER OPEN "+requests);
+       fetchApp.addRequestsToDom(JSON.parse(requests), templates.userOpen,'#openUserRequests');
      },
      error: function (err) {
        console.log("error: ", err);
