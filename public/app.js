@@ -202,7 +202,8 @@ var fetchApp = {
 
   getUserOpenRequests: function() {
    $.ajax({
-     url: fetchApp.urls.userOpenRequests,
+    //  url: fetchApp.urls.openUserRequests,
+    url: '/user-open-requests',
      method:"GET",
      success: function(requests){
        console.log("USER OPEN "+requests);
