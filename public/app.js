@@ -18,6 +18,7 @@ var fetchApp = {
     delete:           '/delete-request',
   },
 
+  loggedIn: false,
   userType: "",
 
   init: function(){
@@ -30,7 +31,7 @@ var fetchApp = {
   },
 
   initEvents: function(){
-    // fetchApp.autoUpdateRequests();
+    fetchApp.autoUpdateRequests();
     // ON LOGIN FORM SUBMISSION
     $('#loginForm').on('submit', function (event) {
       event.preventDefault();
@@ -105,6 +106,7 @@ var fetchApp = {
         console.log("logged in driver" + driverId);
         $('#driverPage').addClass('active');
         $('#loginPage').removeClass('active');
+        fetchApp.loggedIn = true;
         fetchApp.userType = 'DRIVER';
         fetchApp.setWelcome(driverName);
         fetchApp.updateRequests();
@@ -181,6 +183,7 @@ var fetchApp = {
         console.log("logged in" + user);
         $('#userPage').addClass('active');
         $('#loginPage').removeClass('active');
+        fetchApp.loggedIn = true;
         fetchApp.userType = 'USER';
         fetchApp.setWelcome(user);
         fetchApp.updateRequests();
@@ -310,6 +313,10 @@ var fetchApp = {
   },
 
   autoUpdateRequests: function() {
-      window.setInterval(function(){fetchApp.updateRequests()}, 2000);
+    window.setInterval(function(){
+      if (fetchApp.loggedIn) {
+        fetchApp.updateRequests();
+      }
+    }, 2000);
   },
 };
