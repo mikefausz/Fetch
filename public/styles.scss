@@ -1,5 +1,6 @@
 $blue: rgba(35, 99, 173, 1);
 // $purple: #5B3DB1;
+$navy: #194D8A;
 $tintBlue: rgba(19, 67, 123, .85);
 // $tintPurp: rgba(64, 45, 134, .84);
 $serif: 'Roboto Slab', serif;
@@ -51,6 +52,7 @@ section {
   background: $blue;
   &:hover {
     cursor: pointer;
+    background-color: $navy;
   }
 }
 
@@ -142,6 +144,10 @@ header {
   }
 }
 
+span {
+  font-weight: 700;
+}
+
 h1 {
   font-size: 5rem;
   margin: 0;
@@ -173,6 +179,7 @@ h1 {
     margin: 0;
     font-size: 24px;
     font-family: $serif;
+    font-weight: 600;
   }
 }
 

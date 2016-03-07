@@ -39,7 +39,8 @@ section {
   color: white;
   background: #2363ad; }
   .button:hover, #loginBox #letsGo:hover, header .logoutButton:hover, #userPage #submitRequest:hover, #userPage .deleteButton:hover, #userPage .completeButton:hover, #driverPage .acceptButton:hover {
-    cursor: pointer; }
+    cursor: pointer;
+    background-color: #194D8A; }
 
 #loginBox {
   width: 250px;
@@ -110,6 +111,9 @@ header {
     float: right;
     margin-right: 12px; }
 
+span {
+  font-weight: 700; }
+
 h1 {
   font-size: 5rem;
   margin: 0;
@@ -137,7 +141,8 @@ h1 {
   .request h4, #userPage #requestFormBox h4, #userPage .userRequest h4, #userPage .userOpenRequest h4, #driverPage .openRequest h4, #driverPage .acceptedRequest h4 {
     margin: 0;
     font-size: 24px;
-    font-family: "Roboto Slab", serif; }
+    font-family: "Roboto Slab", serif;
+    font-weight: 600; }
 
 #userPage {
   background: #2363ad;
